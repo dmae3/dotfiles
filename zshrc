@@ -299,5 +299,5 @@ function ppcolor() {
 
 # load local settings
 if [ -a $HOME/zshrc.local ]; then
-  source ~/dotfiles/zshrc.local
+  source $HOME/zshrc.local
 fi
