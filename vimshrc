@@ -1,0 +1,5 @@
+alias la="ls -lhAF"
+alias rr="command rm -rf"
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"

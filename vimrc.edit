@@ -1,0 +1,21 @@
+"==============================
+" Basic Setting
+"==============================
+"insert spaces instead of tab
+set expandtab
+"set paste with Pt
+command! Pt :set paste!
+
+"insert space after comma automatically
+inoremap , ,<Space>
+
+"insert close XML tag automatically
+augroup MyXML
+    autocmd!
+    autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
+augroup END
+
+" delete EOL space before saving
+autocmd BufWritePre * :%s/\s\+$//ge
+" translate tab into space before saving
+autocmd BufWritePre * :%s/\t/  /ge

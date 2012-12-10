@@ -1,0 +1,64 @@
+"==============================
+" NeoBundle Setting
+"==============================
+filetype off
+
+if has('vim_starting')
+    set runtimepath+=$HOME/.bundle/neobundle.vim.git
+    call neobundle#rc(expand('~/.bundle'))
+endif
+
+"" edit
+NeoBundle 'surround.vim'
+" NeoBundle 'Townk/vim-autoclose.git'
+NeoBundle 'yuroyoro/vim-autoclose.git'
+" NeoBundle 'smartchr'
+NeoBundle 'YankRing.vim'
+
+"" completion
+NeoBundle 'Shougo/neocomplcache.git'
+NeoBundle 'Shougo/neosnippet.git'
+NeoBundle 'Pydiction'
+
+"" Shougo-san kei?
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'Shougo/vimproc.git', {
+  \ 'build' : {
+  \     'windows' : 'make -f make_mingw32.mak',
+  \     'cygwin' : 'make -f make_cygwin.mak',
+  \     'mac' : 'make -f make_mac.mak',
+  \     'unix' : 'make -f make_unix.mak',
+  \    },
+  \ }
+NeoBundle 'Shougo/vimshell.git'
+NeoBundle 'Shougo/vimfiler.git',
+  \ { 'depends' : 'Shougo/unite.vim' }
+NeoBundle 'Shougo/unite.vim.git'
+NeoBundle 'Shougo/unite-outline'
+
+"" etc
+NeoBundle 'Shougo/vinarise.git'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'scrooloose/nerdcommenter.git'
+"NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'grep.vim'
+NeoBundle 'taglist.vim'
+NeoBundle 'jimsei/winresizer.git'
+NeoBundle 'Lokaltog/vim-powerline'
+
+""colorscheme preview with unite-colorscheme
+"NeoBundle 'ujihisa/unite-colorscheme'
+"NeoBundle 'altercation/vim-colors-solarized'
+"NeoBundle 'croaker/mustang-vim'
+"NeoBundle 'jeffreyiacono/vim-colors-wombat'
+"NeoBundle 'nanotech/jellybeans.vim'
+"NeoBundle 'vim-scripts/Lucius'
+"NeoBundle 'vim-scripts/Zenburn'
+"NeoBundle 'mrkn/mrkn256.vim'
+"NeoBundle 'jpo/vim-railscasts-theme'
+"NeoBundle 'therubymug/vim-pyte'
+"NeoBundle 'tomasr/molokai'
+"NeoBundle 'yuroyoro/yuroyoro256.vim'
+
+filetype plugin on
+filetype indent on
