@@ -99,6 +99,7 @@ prompt_left="%(1j,(%j),)%{%B%}$GREEN%#%{%b%} "
 # Version Controll System Infomations
 autoload -Uz colors
 autoload -Uz vcs_info
+autoload -Uz add-zsh-hook
 
 zstyle ':vcs_info:*' enable git svn hg bzr
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
@@ -116,6 +117,7 @@ if is-at-least 4.3.10; then
   zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u'
 fi
 
+
 # sequence of the update sequence
 update_prompt()
 {
@@ -128,7 +130,7 @@ update_prompt()
 }
 
 # sequence before committing a command
-precmd_functions=($precmd_functions update_prompt)
+add-zsh-hook precmd update_prompt
 
 
 #=============================
