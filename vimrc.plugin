@@ -56,6 +56,20 @@ let g:yankring_replace_n_pkey  =  '<m-p>'
 let g:yankring_replace_n_nkey  =  '<m-n>'
 
 "==============================
+" arpeggio.vim
+"==============================
+let g:arpeggio_timeoutlen = 200
+call arpeggio#load()
+
+Arpeggioinoremap () ()<Left>
+Arpeggioinoremap [] []<Left>
+Arpeggioinoremap <> <><Left>
+Arpeggioinoremap {} {}<Left>
+Arpeggioinoremap d' ''<Left>
+Arpeggioinoremap d" ""<Left>
+
+
+"==============================
 " Pydiction
 "==============================
 let g:pydiction_location  =  '~/.bundle/pydiction/complete-dict'

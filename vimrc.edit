@@ -19,3 +19,10 @@ augroup END
 autocmd BufWritePre * :%s/\s\+$//ge
 " translate tab into space before saving
 autocmd BufWritePre * :%s/\t/  /ge
+
+" auto close
+vnoremap { "zdi{<C-R>z}<ESC>
+vnoremap [ "zdi[<C-R>z]<ESC>
+vnoremap ( "zdi(<C-R>z)<ESC>
+vnoremap " "zdi"<C-R>z"<ESC>
+vnoremap ' "zdi'<C-R>z'<ESC>"'")"]"}"

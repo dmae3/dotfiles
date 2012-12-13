@@ -11,7 +11,7 @@ endif
 "" edit
 NeoBundle 'surround.vim'
 " NeoBundle 'Townk/vim-autoclose.git'
-NeoBundle 'yuroyoro/vim-autoclose.git'
+" NeoBundle 'yuroyoro/vim-autoclose.git'
 " NeoBundle 'smartchr'
 NeoBundle 'YankRing.vim'
 
@@ -45,6 +45,7 @@ NeoBundle 'grep.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'jimsei/winresizer.git'
 NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'kana/vim-arpeggio.git'
 
 ""colorscheme preview with unite-colorscheme
 "NeoBundle 'ujihisa/unite-colorscheme'
