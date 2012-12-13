@@ -242,15 +242,19 @@ esac
 
 # grep
 if type ggrep > /dev/null 2>&1; then
-  alias grep=ggrep
+  alias grep="ggrep"
 fi
 export GREP_OPTIONS
 ## don't match vinary files
 GREP_OPTIONS="--binary-files=without-match"
+grep_version="$(grep --version | head -n 1 | sed -e 's/^[^0-9.]*\([0-9.]*\)[^0-9.]*$/\1/')"
 case "$grep_version" in
-    1.*|2.[0-4].*|2.5.[0-3])
+  1.*|2.[0-4].*|2.5.[0-3])
   ;;
-    *)
+  *)
+    GREP_OPTIONS="--derectories=recurse $GREP_OPTIONS"
+  ;;
+esac
 ## ignore control files
 if grep --help 2>&1 | grep -q -- --exclude-dir; then
   GREP_OPTIONS="--exclude-dir=.svn $GREP_OPTIONS"
@@ -260,7 +264,7 @@ if grep --help 2>&1 | grep -q -- --exclude-dir; then
 fi
 ## colours if possible
 if grep --help 2>&1 | grep -q -- --color; then
- GREP_OPTIONS="--color=auto $GREP_OPTIONS"
+  GREP_OPTIONS="--color=auto $GREP_OPTIONS"
 fi
 
 # exit
@@ -300,6 +304,6 @@ function ppcolor() {
 }
 
 # load local settings
-if [ -a $HOME/zshrc.local ]; then
+if [ -e $HOME/zshrc.local ]; then
   source $HOME/zshrc.local
 fi
