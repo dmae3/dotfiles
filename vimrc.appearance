@@ -69,3 +69,6 @@ augroup END
 " display Zenkaku space
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 match ZenkakuSpace /　/
+
+" for putty?
+hi Normal ctermbg=NONE
