@@ -34,17 +34,17 @@ export SLP=$HOME/svn/SLP
 ###############################################################################
 # auto login to tmux
 ###############################################################################
-if [ -z "$TMUX" -a -z "$STY" ]; then
-    if type tmuxx >/dev/null 2>&1; then
-        tmuxx
-    elif type tmux >/dev/null 2>&1; then
-        if tmux has-session && tmux list-sessions | /bin/grep -qE '.*]$'; then
-            tmux attach && echo "tmux attached session "
-        else
-            tmux new-session && echo "tmux created new session"
-        fi
-    fi
-fi
+# if [ -z "$TMUX" -a -z "$STY" ]; then
+    # if type tmuxx >/dev/null 2>&1; then
+        # tmuxx
+    # elif type tmux >/dev/null 2>&1; then
+        # if tmux has-session && tmux list-sessions | /bin/grep -qE '.*]$'; then
+            # tmux attach && echo "tmux attached session "
+        # else
+            # tmux new-session && echo "tmux created new session"
+        # fi
+    # fi
+# fi
 
 ###############################################################################
 # history
@@ -72,5 +72,3 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 export PS1='\[\033[35m\][\w]$(__git_ps1 "(%s)") \n\[\033[33m\]\u@\h$\[\033[0m\] '
-
-
