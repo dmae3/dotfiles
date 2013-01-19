@@ -6,7 +6,7 @@ filetype off
 
 if v:version >= 703
   if has('vim_starting')
-    set runtimepath+=$HOME/.bundle/neobundle.vim.git
+    set runtimepath+=$HOME/.bundle/neobundle
     call neobundle#rc(expand('~/.bundle'))
   endif
 
