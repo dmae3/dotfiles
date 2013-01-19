@@ -13,10 +13,18 @@ done
 
 # git clone neobundle.vim
 if type -P git > /dev/null 2>&1; then
-  if [ -a $HOME/.bundle/neobundle.vim.git ]; then
-    echo "neobundle already exists."
+  if [ `vim --version | awk '/[0-9]\.[0-9]/' | cut -d" " -f5` = '7.3' ]; then
+    if [ -a $HOME/.vim/bundle/neobundle.vim.git ]; then
+    echo "[ERROR] neobundle already exists."
+    else
+      git clone http://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle
+    fi
   else
-    git clone https://github.com/Shougo/neobundle.vim $HOME/.bundle/neobundle.vim.git
+    if [ -a $HOME/.vim/bundle/vundle.git ]; then
+      echo "[ERROR] vundle already exists."
+    else
+      git clone http://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
+    fi
   fi
 else
   echo "git is not installed."
