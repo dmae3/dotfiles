@@ -6,8 +6,8 @@ filetype off
 
 if v:version >= 703
   if has('vim_starting')
-    set runtimepath+=$HOME/.bundle/neobundle
-    call neobundle#rc(expand('~/.bundle'))
+    set runtimepath+=$HOME/.vim/bundle/neobundle
+    call neobundle#rc(expand('~/.vim/bundle'))
   endif
 
   "" edit
@@ -77,23 +77,23 @@ else
   Bundle 'YankRing.vim'
 
   "" completion
-  Bundle 'Shougo/neocomplcache.git'
-  Bundle 'Shougo/neosnippet.git'
+  " Bundle 'Shougo/neocomplcache.git'
+  " Bundle 'Shougo/neosnippet.git'
   Bundle 'Pydiction'
 
   "" Shougo-san kei?
-  Bundle 'thinca/vim-quickrun'
-  Bundle 'Shougo/vimproc.git'
-  Bundle 'Shougo/vimshell.git'
-  Bundle 'Shougo/vimfiler.git'
-  Bundle 'Shougo/unite.vim.git'
-  Bundle 'Shougo/unite-outline'
+  " Bundle 'thinca/vim-quickrun'
+  " Bundle 'Shougo/vimproc.git'
+  " Bundle 'Shougo/vimshell.git'
+  " Bundle 'Shougo/vimfiler.git'
+  " Bundle 'Shougo/unite.vim.git'
+  " Bundle 'Shougo/unite-outline'
 
   "" etc
-  Bundle 'Shougo/vinarise.git'
+  " Bundle 'Shougo/vinarise.git'
   Bundle 'tpope/vim-fugitive'
   Bundle 'scrooloose/nerdcommenter.git'
-  "Bundle 'scrooloose/nerdtree'
+  Bundle 'scrooloose/nerdtree'
   Bundle 'grep.vim'
   Bundle 'taglist.vim'
   Bundle 'jimsei/winresizer.git'
