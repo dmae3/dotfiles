@@ -40,3 +40,13 @@ nnoremap <C-w>c :tabclose<CR>
 inoremap <C-l> <Right>
 " move a cursor to left with <C-h>
 inoremap <C-h> <Left>
+
+" open a new tab to copy
+if v:version >= 700
+  command! Ps call OpenPasteTab()
+  function! OpenPasteTab()
+    let f = expand("%:p")
+    execute ":tabnew ".f
+    execute ":set nonumber"
+  endfunction
+endif
