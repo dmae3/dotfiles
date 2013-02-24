@@ -1,7 +1,7 @@
 #!/bin/bash
 
 files=( vimrc zshrc tmux.conf dir_colors vimshrc bashrc )
-directories=( vim vimfiler vimshell )
+directories=( vim vimfiler vimshell unite )
 
 for file in ${files[@]}
 do
