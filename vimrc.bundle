@@ -66,7 +66,7 @@ if v:version >= 703
 else
 
   set rtp+=~/.vim/bundle/vundle
-  call vundle#rc()
+  call vundle#rc(expand('~/.vim/bundle'))
 
   Bundle 'gmarik/vundle'
   "" edit
@@ -79,7 +79,7 @@ else
   "" completion
   " Bundle 'Shougo/neocomplcache.git'
   " Bundle 'Shougo/neosnippet.git'
-  Bundle 'Pydiction'
+  " Bundle 'Pydiction'
 
   "" Shougo-san kei?
   " Bundle 'thinca/vim-quickrun'
