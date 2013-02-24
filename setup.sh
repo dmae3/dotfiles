@@ -11,6 +11,13 @@ do
   fi
 done
 
+# source bashrc before finding git
+if $(cat ~/.bashrc | grep "PATH=$HOME/local/bin:$PATH"); then
+    source ~/.bashrc
+else
+    echo 'PATH=$HOME/local/bin:$PATH' > ~/.bashrc
+    source ~/.bashrc
+
 # git clone neobundle.vim
 if type -P git > /dev/null 2>&1; then
   if [ `vim --version | awk '/[0-9]\.[0-9]/' | cut -d" " -f5` = '7.3' ]; then
