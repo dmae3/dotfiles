@@ -92,7 +92,7 @@ highlight CursorLine ctermbg=black guibg=black
 syntax enable
 
 "colorscheme
-colorscheme yuroyoro256
+colorscheme xoria256
 
 " colour setting depending terminal type
 if &term =~ "xterm-256color" || "screen-256color"
