@@ -134,6 +134,9 @@ match ZenkakuSpace /　/
 " for putty?
 hi Normal ctermbg=NONE
 
+" for twig syntax hilight
+autocmd BufReadPost *.twig set filetype=jinja
+
 "==============================
 " Edit
 "==============================
