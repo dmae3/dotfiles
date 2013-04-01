@@ -41,13 +41,20 @@
     log-all = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
     # diff
     di = diff
-    dm = diff master           # masterとのdiff
-    dw = diff --color-words    # 単語単位でいろつけてdiff
-    dc = diff --cached         # addされているものとのdiff
-    ds = diff --staged         # 同上(1.6.1移行)
-    d1 = diff HEAD~            # HEADから1つ前とdiff
-    d2 = diff HEAD~~           # HEADから2つ前とdiff
-    d3 = diff HEAD~~~          # HEADから3つ前とdiff
-    d4 = diff HEAD~~~~         # HEADから4つ前とdiff
-    d5 = diff HEAD~~~~~        # HEADから5つ前とdiff
-    d10 = diff HEAD~~~~~~~~~~  # HEADから10前とdiff
+    dm = diff master
+    dw = diff --color-words
+    dc = diff --cached
+    ds = diff --staged
+    d1 = diff HEAD~
+    d2 = diff HEAD~~
+    d3 = diff HEAD~~~
+    d4 = diff HEAD~~~~
+    d5 = diff HEAD~~~~~
+    d10 = diff HEAD~~~~~~~~~~
+    # edit a conficting file
+    edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+    # add a conficting file
+    add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+    # grep
+    gr = grep
+    gn = grep -n
