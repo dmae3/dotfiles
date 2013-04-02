@@ -92,7 +92,10 @@ highlight CursorLine ctermbg=black guibg=black
 syntax enable
 
 "colorscheme
-colorscheme xoria256
+" colorscheme xoria256
+colorscheme hybrid
+" colorscheme yuroyoro256
+" set background=dark
 
 " colour setting depending terminal type
 if &term =~ "xterm-256color" || "screen-256color"
@@ -136,6 +139,11 @@ hi Normal ctermbg=NONE
 
 " for twig syntax hilight
 autocmd BufReadPost *.twig set filetype=jinja
+
+" settings of listchars
+" set list
+" set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
+" set lcs=tab:>., trail:_, extends:\
 
 "==============================
 " Edit
@@ -268,7 +276,7 @@ if has("autocmd")
     autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
     autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
     autocmd FileType haml       setlocal sw=2 sts=2 ts=2 et
-    autocmd FileType sh         setlocal sw=4 sts=4 ts=4 et
+    autocmd FileType sh         setlocal sw=2 sts=2 ts=2 et
     autocmd FileType sql        setlocal sw=4 sts=4 ts=4 et
     autocmd FileType vb         setlocal sw=4 sts=4 ts=4 et
     autocmd FileType vim        setlocal sw=2 sts=2 ts=2 et
@@ -276,7 +284,7 @@ if has("autocmd")
     autocmd FileType xhtml      setlocal sw=4 sts=4 ts=4 et
     autocmd FileType xml        setlocal sw=4 sts=4 ts=4 et
     autocmd FileType yaml       setlocal sw=2 sts=2 ts=2 et
-    autocmd FileType zsh        setlocal sw=4 sts=4 ts=4 et
+    autocmd FileType zsh        setlocal sw=2 sts=2 ts=2 et
     autocmd FileType scala      setlocal sw=2 sts=2 ts=2 et
 endif
 
@@ -285,7 +293,6 @@ endif
 "==============================
 autocmd FileType python setl autoindent nosmartindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd FileType python setl smarttab expandtab tabstop=8 shiftwidth=4 softtabstop=4
 autocmd FileType python setl cindent
 autocmd FileType python setl textwidth=80
 
@@ -392,6 +399,7 @@ if v:version >= 703
   NeoBundle 'jimsei/winresizer.git'
   NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'kana/vim-arpeggio.git'
+  NeoBundle 'nathanaelkane/vim-indent-guides.git'
 
   ""colorscheme preview with unite-colorscheme
   "NeoBundle 'ujihisa/unite-colorscheme'
@@ -620,7 +628,7 @@ Arpeggioinoremap d" ""<Left>
 "==============================
 " Pydiction
 "==============================
-let g:pydiction_location  =  '~/.bundle/pydiction/complete-dict'
+" let g:pydiction_location  =  '~/.bundle/pydiction/complete-dict'
 
 "==============================
 " NERDTree.vim
@@ -662,13 +670,13 @@ let g:winresizer_start_key = '<C-E>'
 "==============================
 " Fugitive.vim
 "==============================
-nnoremap <Space>gd :<C-u>Gdiff<Enter>
-nnoremap <Space>gs :<C-u>Gstatus<Enter>
-nnoremap <Space>gl :<C-u>Glog<Enter>
-nnoremap <Space>ga :<C-u>Gwrite<Enter>
-nnoremap <Space>gc :<C-u>Gcommit<Enter>
-nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
-nnoremap <Space>gb :<C-u>Gblame<Enter>
+nnoremap <Leader>gd :<C-u>Gdiff<Enter>
+nnoremap <Leader>gs :<C-u>Gstatus<Enter>
+nnoremap <Leader>gl :<C-u>Glog<Enter>
+nnoremap <Leader>ga :<C-u>Gwrite<Enter>
+nnoremap <Leader>gc :<C-u>Gcommit<Enter>
+nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
+nnoremap <Leader>gb :<C-u>Gblame<Enter>
 
 "==============================
 " taglist.Vim
@@ -812,6 +820,20 @@ function! s:unite_my_settings()"{{{
 endfunction"}}}
 
 let g:unite_source_file_mru_limit = 200
+
+"==============================
+" indent-guides
+"==============================
+let indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_color_change_percent = 90
+" autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=green
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=60
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=236
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_space_guides = 1
+let g:indent_guides_exclude_filetypes = ['help',  'nerdtree', 'vimfiler', 'quickfix', 'unite']
 
 "==============================
 " powerline
