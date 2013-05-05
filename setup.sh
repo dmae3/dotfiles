@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dotfiles=( vim vimrc zshrc tmux.conf dir_colors vimshrc bashrc gitconfig )
+dotfiles=( vim vimrc zshrc tmux.conf dir_colors vimshrc bashrc gitconfig agignore )
 for file in ${dotfiles[@]}
 do
   if [ -a $HOME/.$file ]; then
@@ -19,21 +19,19 @@ else
     source ~/.bashrc
 fi
 
-# git clone neobundle.vim
-if type git > /dev/null 2>&1; then
+# git clone neobundle.vim and zsh-completions
+if which git &> /dev/null -o which $HOME/local/bin/git &> /dev/null; then
   if [ `vim --version | awk '/[0-9]\.[0-9]/' | cut -d" " -f5` = '7.3' ]; then
     if [ -a $HOME/.vim/bundle/neobundle.vim.git ]; then
-    echo "[ERROR] neobundle already exists."
+      echo "[ERROR] neobundle already exists."
     else
       git clone http://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle
     fi
-  else
-    if [ -a $HOME/.vim/bundle/vundle.git ]; then
-      echo "[ERROR] vundle already exists."
-    else
-      git clone http://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
-    fi
   fi
+  if [ -d $HOME/.zsh-completions ]; then
+    mkdir $HOME/.zsh-completions
+    git clone http://github.com/zsh-users/zsh-completions.git $HOME/.zsh-completions
+    rm -f ~/.zcompdump; compinit
 else
   echo "git is not installed."
 fi

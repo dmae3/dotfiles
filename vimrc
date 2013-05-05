@@ -19,22 +19,14 @@ set writebackup
 " Copy & Paste
 "==============================
 " use clipboard in OS
-set clipboard+=unnamed
+" set clipboard+=unnamed
 " enable mouse
-set mouse=a
-set guioptions+=a
-set ttymouse=xterm2
+" set mouse=a
+" set guioptions+=a
+" set ttymouse=xterm2
 
-" yank to clipboard in OS
-set clipboard=unnamed
 " paste from clipboard in Insert Mode
 imap <C-p>  <ESC>"*pa
-
-" edit and source with Ev/Sv
-command! Ev edit $MYVIMRC
-command! Sv source $MYVIMRC
-
-filetype plugin on
 
 "==============================
 " Move
@@ -67,7 +59,39 @@ set showmode
 set laststatus=2
 set ruler
 "set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
-"set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %{g:HahHah()}\ %F%=[%{GetB()}]\ %{fugitive#statusline()}\ %l,%c%V%8P
+" set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=\ %{fugitive#statusline()}\ %l,%c%V%8P
+
+" function! GetMode()
+  " let mode = mode()
+  " if mode ==# 'v'
+    " let mode = "VISUAL"
+  " elseif mode ==# 'V'
+    " let mode = "V⋅LINE"
+  " elseif mode ==# ''
+    " let mode = "V⋅BLOCK"
+  " elseif mode ==# 's'
+    " let mode = "SELECT"
+  " elseif mode ==# 'S'
+    " let mode = "S⋅LINE"
+  " elseif mode ==# ''
+    " let mode = "S⋅BLOCK"
+  " elseif mode =~# '\vi'
+    " let mode = "INSERT"
+  " elseif mode =~# '\v(R|Rv)'
+    " let mode = "REPLACE"
+  " else
+    " " Fallback to normal mode
+    " let mode = "NORMAL"
+  " endif
+  " return mode
+" endfunction
+
+" set statusline=
+" set statusline+=%1*\ %{&paste?'PASTE\ ':''}
+" set statusline+=%2*\ %{GetMode()}
+
+" hi User1 ctermfg=red ctermbg=black
+" hi User2 ctermfg=blue ctermbg=grey
 
 "==============================
 " Cursor Line
@@ -93,7 +117,8 @@ syntax enable
 
 "colorscheme
 " colorscheme xoria256
-colorscheme hybrid
+" colorscheme hybrid
+colorscheme jellybeans
 " colorscheme yuroyoro256
 " set background=dark
 
@@ -167,12 +192,16 @@ autocmd BufWritePre * :%s/\s\+$//ge
 " translate tab into space before saving
 autocmd BufWritePre * :%s/\t/  /ge
 
-" auto close
+" auto close in visual mode
 vnoremap { "zdi{<C-R>z}<ESC>
 vnoremap [ "zdi[<C-R>z]<ESC>
 vnoremap ( "zdi(<C-R>z)<ESC>
 vnoremap " "zdi"<C-R>z"<ESC>
-vnoremap ' "zdi'<C-R>z'<ESC>"'")"]"}"
+vnoremap ' "zdi'<C-R>z'<ESC>
+
+" edit and source with Ev/Sv
+command! Ev edit $MYVIMRC
+command! Sv source $MYVIMRC
 
 "=============================
 " Encoding Settings
@@ -273,7 +302,7 @@ if has("autocmd")
     autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
     autocmd FileType perl       setlocal sw=4 sts=4 ts=4 et
     autocmd FileType php        setlocal sw=4 sts=4 ts=4 et
-    autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
+    autocmd FileType python     setlocal sw=4 sts=4 ts=4 et textwidth=80 cinwords=if,elif,else,for,while,try,except,finally,def,class
     autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
     autocmd FileType haml       setlocal sw=2 sts=2 ts=2 et
     autocmd FileType sh         setlocal sw=2 sts=2 ts=2 et
@@ -287,14 +316,6 @@ if has("autocmd")
     autocmd FileType zsh        setlocal sw=2 sts=2 ts=2 et
     autocmd FileType scala      setlocal sw=2 sts=2 ts=2 et
 endif
-
-"==============================
-" for python (pep8)
-"==============================
-autocmd FileType python setl autoindent nosmartindent
-autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd FileType python setl cindent
-autocmd FileType python setl textwidth=80
 
 "==============================
 " Tag
@@ -349,6 +370,8 @@ if v:version >= 700
   endfunction
 endif
 
+" disable Ex Mode
+noremap Q <Nop>
 
 "==============================
 " NeoBundle Setting
@@ -366,12 +389,12 @@ if v:version >= 703
   " NeoBundle 'Townk/vim-autoclose.git'
   " NeoBundle 'yuroyoro/vim-autoclose.git'
   " NeoBundle 'smartchr'
-  NeoBundle 'YankRing.vim'
+  " NeoBundle 'YankRing.vim'
 
   "" completion
   NeoBundle 'Shougo/neocomplcache.git'
   NeoBundle 'Shougo/neosnippet.git'
-  NeoBundle 'Pydiction'
+  " NeoBundle 'Pydiction'
 
   "" Shougo-san kei?
   NeoBundle 'thinca/vim-quickrun'
@@ -399,7 +422,12 @@ if v:version >= 703
   NeoBundle 'jimsei/winresizer.git'
   NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'kana/vim-arpeggio.git'
+  NeoBundle 'kana/vim-smartinput.git'
   NeoBundle 'nathanaelkane/vim-indent-guides.git'
+  NeoBundle 'davidhalter/jedi-vim'
+  NeoBundle 'rking/ag.vim.git'
+  NeoBundle 'scrooloose/syntastic.git'
+
 
   ""colorscheme preview with unite-colorscheme
   "NeoBundle 'ujihisa/unite-colorscheme'
@@ -481,7 +509,7 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 inoremap <expr><CR>  pumvisible() ?  neocomplcache#close_popup() : "<CR>"
 
 " Enable omni completion. Not required if they are already set elsewhere in .vimrc
-autocmd FileType python     setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType python     setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html       setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css        setlocal omnifunc=csscomplete#CompleteCSS
@@ -617,13 +645,13 @@ let g:yankring_replace_n_nkey  =  '<m-n>'
 let g:arpeggio_timeoutlen = 200
 call arpeggio#load()
 
-Arpeggioinoremap () ()<Left>
-Arpeggioinoremap [] []<Left>
+" Arpeggioinoremap () ()<Left>
+" Arpeggioinoremap [] []<Left>
 Arpeggioinoremap <> <><Left>
-Arpeggioinoremap {} {}<Left>
-Arpeggioinoremap d' ''<Left>
-Arpeggioinoremap d" ""<Left>
-
+" Arpeggioinoremap {} {}<Left>
+" Arpeggioinoremap '' ''<Left>
+" Arpeggioinoremap "" ""<Left>
+" Arpeggioinoremap || ||<Left>
 
 "==============================
 " Pydiction
@@ -790,27 +818,29 @@ command! Vs :VimShell
 nnoremap    [unite]   <Nop>
 nmap    <C-u> [unite]
 
-" everything
-nnoremap <silent> [unite]a  :<C-u>UniteWithCurrentDir -no-split -buffer-name=files buffer file_mru bookmark file<CR>
+" file list asynchronously
+nnoremap <silent> [unite]f :<C-u>Unite -buffer-name=files_async file_rec/async<CR>
 " file list
-nnoremap <silent> [unite]f :<C-u>Unite -no-split -buffer-name=files file<CR>
+nnoremap <silent> [unite]F :<C-u>Unite -buffer-name=files file_rec<CR>
 " buffer list
-nnoremap <silent> [unite]b :<C-u>Unite -no-split buffer file_mru<CR>
-" history of files
-nnoremap <silent> [unite]h :<C-u>Unite -no-split file_mru<CR>
-" file list from the current dir of the buffer
-nnoremap <silent> [unite]d :<C-u>UniteWithBufferDir -no-split file<CR>
+nnoremap <silent> [unite]h :<C-u>Unite -no-split buffer file_mru<CR>
 " bookmark list
-nnoremap <silent> [unite]m :<C-u>Unite bookmark<CR>
+nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
 " history of changes
 nnoremap <silent> [unite]c :<C-u>Unite change jump<CR>
 " outline
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
+" yank history
+nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+" add bookmark
+nnoremap <silent> [unite]a :<C-u>:UniteBookmarkAdd<CR>
+" unite-grep
+nnoremap <silent> [unite]g :<C-u>:Unite grep<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
   " Start insert.
-  " let g:unite_enable_start_insert = 1
+  let g:unite_enable_start_insert = 1
 
   nnoremap <silent> <buffer> <expr> <C-s> unite#do_action('split')
   inoremap <silent> <buffer> <expr> <C-s> unite#do_action('split')
@@ -820,6 +850,20 @@ function! s:unite_my_settings()"{{{
 endfunction"}}}
 
 let g:unite_source_file_mru_limit = 200
+let g:unite_source_history_yank_enable = 1
+
+" for unite-grep
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nocolor --nogroup --hidden'
+  let g:unite_source_grep_recursive_opt = ''
+elseif executable('ack-grep')
+  let g:unite_source_grep_command = 'ack-grep'
+  let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+" unite-grep in visual mode
+vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 
 "==============================
 " indent-guides
@@ -836,9 +880,106 @@ let g:indent_guides_space_guides = 1
 let g:indent_guides_exclude_filetypes = ['help',  'nerdtree', 'vimfiler', 'quickfix', 'unite']
 
 "==============================
+" smartinput
+"==============================
+call smartinput#map_to_trigger('i', '#', '#', '#')
+call smartinput#define_rule({
+\ 'at': '\%#',
+\ 'char': '#',
+\ 'input': '#{}<Left>',
+\ 'filetype': ['ruby'],
+\ 'syntax': ['Constant', 'Special'],
+\ })
+
+call smartinput#map_to_trigger('i', '<Bar>', '<Bar>', '<Bar>')
+call smartinput#define_rule({
+\ 'at': '\%#',
+\ 'char': '<Bar>',
+\ 'input': '<Bar><Bar><Left>',
+\ 'filetype': ['ruby'],
+\ })
+
+call smartinput#define_rule({
+\ 'at': '\({\|\<do\>\)\s*\%#',
+\ 'char': '<Bar>',
+\ 'input': '<Bar><Bar><Left>',
+\ 'filetype': ['ruby'],
+\ })
+
+call smartinput#define_rule({
+\   'at': '\s\+\%#',
+\   'char': '<CR>',
+\   'input': "<C-o>:call setline('.',  substitute(getline('.'),  '\\s\\+$',  '',  ''))<CR><CR>",
+\   })
+
+call smartinput#map_to_trigger('i',  '<Space>',  '<Space>',  '<Space>')
+call smartinput#define_rule({
+\   'at'    : '(\%#)',
+\   'char'  : '<Space>',
+\   'input' : '<Space><Space><Left>',
+\   })
+
+call smartinput#define_rule({
+\   'at'    : '( \%# )',
+\   'char'  : '<BS>',
+\   'input' : '<Del><BS>',
+\   })
+
+call smartinput#define_rule({
+\   'at'       : '\\\%(\|%\|z\)\%#',
+\   'char'     : '(',
+\   'input'    : '(\)<Left><Left>',
+\   'filetype' : ['vim'],
+\   'syntax'   : ['String'],
+\   })
+
+call smartinput#define_rule({
+\   'at'       : '\\(\%#\\)',
+\   'char'     : '<BS>',
+\   'input'    : '<Del><Del><BS><BS>',
+\   'filetype' : ['vim'],
+\   'syntax'   : ['String'],
+\   })
+call smartinput#define_rule({
+\   'at'       : '\\[%z](\%#\\)',
+\   'char'     : '<BS>',
+\   'input'    : '<Del><Del><BS><BS><BS>',
+\   'filetype' : ['vim'],
+\   'syntax'   : ['String'],
+\   })
+
+"==============================
+" syntastic
+"==============================
+" let g:syntastic_always_populate_loc_list = 1
+
+"==============================
+" jedi-vim
+"==============================
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
+let g:jedi#goto_command = "<leader>jg"
+let g:jedi#get_definition_command = "<leader>jd"
+let g:jedi#pydoc = "<Leader>jk"
+let g:jedi#rename_command = "<leader>jr"
+let g:jedi#related_names_command = "<leader>jn"
+
+
+"==============================
 " powerline
 "==============================
 "let g:Powerline_symbols = 'fancy'
+" let g:Powerline_stl_path_style = 'short'
+call Pl#Theme#RemoveSegment('scrollpercent')
+call Pl#Theme#RemoveSegment('lineinfo')
+" call Pl#Theme#ReplaceSegment('scrollpercent', 'line.cur')
+" let s:prev_seg = 'paste_indicator'
+" for seg in ['fileformat', 'fileencoding', 'filetype', 'filesize', 'line.tot']
+  " call Pl#Theme#InsertSegment(seg, 'after', s:prev_seg)
+  " let s:prev_seg = seg
+" endfor
+" unlet s:prev_seg
+
 " change colour in each mode
 call Pl#Hi#Allocate({
   \ 'black'          : 16,

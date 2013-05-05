@@ -11,8 +11,9 @@ export LC_CTYPE=ja_JP.UTF-8
 #=============================
 # PATH
 #=============================
-PATH=/home/$USER/local/bin:/usr/local/Cellar:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PATH=$HOME/local/bin:$PATH
 export TERM=xterm-256color
+fpath=($HOME/.zsh-completions $fpath)
 
 #=============================
 # Key Binding
@@ -271,9 +272,11 @@ fi
 alias x="exit"
 
 # tmux alias
-alias tm ="tmux"
-alias tml="tmux ls"
-alias tma="tmux attach -t "
+if which tmux &> /dev/null; then
+  alias tm ="tmux"
+  alias tml="tmux ls"
+  alias tma="tmux a -t "
+fi
 
 
 #=============================
