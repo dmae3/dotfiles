@@ -24,6 +24,7 @@ if [ `which git &> /dev/null` -o `which $HOME/local/bin/git &> /dev/null` ]; the
     mkdir $HOME/.zsh-completions
     git clone http://github.com/zsh-users/zsh-completions.git $HOME/.zsh-completions
     rm -f ~/.zcompdump; compinit
+  fi
 else
   echo "git is not installed."
 fi
