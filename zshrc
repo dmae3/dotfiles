@@ -253,7 +253,7 @@ case "$grep_version" in
   1.*|2.[0-4].*|2.5.[0-3])
   ;;
   *)
-    GREP_OPTIONS="--derectories=recurse $GREP_OPTIONS"
+    GREP_OPTIONS="--directories=recurse $GREP_OPTIONS"
   ;;
 esac
 ## ignore control files
