@@ -964,7 +964,6 @@ let g:jedi#pydoc = "<Leader>jk"
 let g:jedi#rename_command = "<leader>jr"
 let g:jedi#related_names_command = "<leader>jn"
 
-
 "==============================
 " powerline
 "==============================
@@ -1130,3 +1129,10 @@ let g:Powerline#Colorschemes#my#colorscheme = Pl#Colorscheme#Init([
     \ 'n': ['white', 'darkestpurple'],
     \ }),
   \ ])
+
+"==============================
+" vimrc.local
+"==============================
+if globpath('~', 'vimrc.local')
+  source ~/vimrc.local
+endif
