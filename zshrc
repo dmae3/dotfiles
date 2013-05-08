@@ -128,6 +128,9 @@ update_prompt()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
     RPROMPT="%1(v|${LIGHT_BLUE}%1v%f|)"
+    if [ -n "$VIRTUAL_ENV" ]; then
+      RPROMPT="${RPROMPT} ${LIGHT_BLUE}@(`basename \"$VIRTUAL_ENV\"`)${DEFAULT}"
+    fi
 }
 
 # sequence before committing a command
