@@ -61,38 +61,6 @@ set ruler
 "set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
 " set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=\ %{fugitive#statusline()}\ %l,%c%V%8P
 
-" function! GetMode()
-  " let mode = mode()
-  " if mode ==# 'v'
-    " let mode = "VISUAL"
-  " elseif mode ==# 'V'
-    " let mode = "V⋅LINE"
-  " elseif mode ==# ''
-    " let mode = "V⋅BLOCK"
-  " elseif mode ==# 's'
-    " let mode = "SELECT"
-  " elseif mode ==# 'S'
-    " let mode = "S⋅LINE"
-  " elseif mode ==# ''
-    " let mode = "S⋅BLOCK"
-  " elseif mode =~# '\vi'
-    " let mode = "INSERT"
-  " elseif mode =~# '\v(R|Rv)'
-    " let mode = "REPLACE"
-  " else
-    " " Fallback to normal mode
-    " let mode = "NORMAL"
-  " endif
-  " return mode
-" endfunction
-
-" set statusline=
-" set statusline+=%1*\ %{&paste?'PASTE\ ':''}
-" set statusline+=%2*\ %{GetMode()}
-
-" hi User1 ctermfg=red ctermbg=black
-" hi User2 ctermfg=blue ctermbg=grey
-
 "==============================
 " Cursor Line
 "==============================
@@ -202,6 +170,9 @@ vnoremap ' "zdi'<C-R>z'<ESC>
 " edit and source with Ev/Sv
 command! Ev edit $MYVIMRC
 command! Sv source $MYVIMRC
+
+" save as super user
+command! Sw :w !sudo tee >/dev/null %
 
 "=============================
 " Encoding Settings
@@ -415,6 +386,7 @@ if v:version >= 703
   "" etc
   NeoBundle 'Shougo/vinarise.git'
   NeoBundle 'tpope/vim-fugitive'
+  NeoBundle 'gregsexton/gitv.git'
   NeoBundle 'scrooloose/nerdcommenter.git'
   "NeoBundle 'scrooloose/nerdtree'
   NeoBundle 'grep.vim'
@@ -705,6 +677,29 @@ nnoremap <Leader>ga :<C-u>Gwrite<Enter>
 nnoremap <Leader>gc :<C-u>Gcommit<Enter>
 nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
 nnoremap <Leader>gb :<C-u>Gblame<Enter>
+" autocmd FileType git setlocal nofoldenable foldlevel=0
+function! s:toggle_git_folding()
+  if &filetype ==# 'git'
+    setlocal foldenable!
+  endif
+endfunction
+nnoremap <silent><buffer> t :<C-u>windo call <SID>toggle_git_folding()<CR>1<C-w>w
+
+"==============================
+" gitv
+"==============================
+" autocmd FileType gitv call s:my_gitv_settings()
+function! s:my_gitv_settings()
+  setlocal iskeyword+=/,-,.
+  nnoremap <silent><buffer> C :<C-u>Git checkout <C-r><C-w><CR>
+endfunction
+function! s:gitv_get_current_hash()
+  return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+endfunction
+nnoremap <buffer> <Space>rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
+nnoremap <buffer> <Space>R :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
+nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
+nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
 
 "==============================
 " taglist.Vim
