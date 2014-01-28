@@ -416,7 +416,7 @@ if v:version >= 703
   NeoBundle 'rking/ag.vim.git'
   " NeoBundle 'scrooloose/syntastic.git'
   NeoBundle 'bling/vim-airline'
-  " NeoBundle 'Yggdroot/indentLine.git'
+  NeoBundle 'Yggdroot/indentLine.git'
   NeoBundle 'rhysd/clever-f.vim'
   NeoBundle 'kien/ctrlp.vim'
   NeoBundle 'tacahiroy/ctrlp-funky'
@@ -903,6 +903,7 @@ call smartinput#define_rule({
 \   'filetype' : ['vim'],
 \   'syntax'   : ['String'],
 \   })
+
 call smartinput#define_rule({
 \   'at'       : '\\[%z](\%#\\)',
 \   'char'     : '<BS>',
@@ -964,14 +965,15 @@ nmap p <Plug>(yankround-p)
 nmap P <Plug>(yankround-P)
 nmap gp <Plug>(yankround-gp)
 nmap gP <Plug>(yankround-gP)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
+nmap <C-k> <Plug>(yankround-prev)
+nmap <C-j> <Plug>(yankround-next)
 
 "==============================
 " ctrlp.vim
 "==============================
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
+let g:ctrlp_clear_cache_on_exit = 0
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -987,10 +989,6 @@ nnoremap sd :<C-u>CtrlPDir<CR>
 nnoremap sa :<C-u>CtrlPMixed<CR>
 nnoremap sf :<C-u>CtrlPFunky<CR>
 nnoremap sy :<C-u>CtrlPYankRound<CR>
-
-"==============================
-" ctrlp-funky
-"==============================
 
 "==============================
 " vimrc.local
