@@ -10,4 +10,4 @@ else
 fi
 
 git clone https://github.com/DaiJpn/dotfiles.git $HOME/dotfiles
-sh $HOME/dotfiles/setup.sh
+sh $HOME/dotfiles/bin/setup.sh
