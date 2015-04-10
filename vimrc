@@ -361,8 +361,7 @@ if neobundle#tap('unite.vim') " {{{3
     let g:unite_source_menu_menus.global.map = function('s:unite_menu_map_func')
     let g:unite_source_menu_menus.unite.map = function('s:unite_menu_map_func')
     let g:unite_source_menu_menus.global.candidates = [
-        \ [ '[edit] vimrc' , $MYVIMRC ],
-        " \ [ '[terminal] VimShell' , ':VimShell' ],
+      \ [ '[edit] vimrc' , $MYVIMRC ],
       \ ]
     let g:unite_source_menu_menus.unite.candidates = []
     let g:unite_source_menu_filetype_candidates = {}
