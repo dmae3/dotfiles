@@ -1,5 +1,5 @@
 ## Usage
 
 ```
-$ curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
+$ curl https://raw.githubusercontent.com/DaiJpn/dotfiles/master/bin/install.sh | sh
 ```
