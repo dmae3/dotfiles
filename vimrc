@@ -120,6 +120,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'kien/rainbow_parentheses.vim'
   NeoBundleLazy 'mattn/sonictemplate-vim'
   NeoBundle 'jimsei/winresizer'
+  NeoBundle 'supermomonga/projectlocal.vim'
 
   NeoBundle 'joedicastro/vim-molokai256'
   NeoBundle 'tomasr/molokai'
@@ -412,10 +413,22 @@ if neobundle#tap('unite.vim') " {{{3
       echo "You are not in any project."
     endif
   endfunction
+  call unite#custom#source('file_rec/async', 'ignore_pattern', '\(png\|gif\|jpeg\|jpg\)$')
+  let g:unite_source_rec_max_cache_files = 20000
+  " unite-grep in visual mode
+  vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+  " change directory as default action
+  autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
+  " open bookmarks as VimFiler
+  call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 
   if neobundle#is_installed('unite-outline')
     nnoremap <silent> <C-u>h :<C-u>Unite outline<CR>
   endif
+endif " }}}
+
+if neobundle#tap('neomru.vim') " {{{3
+  let g:neomru#do_validate = 0
 endif " }}}
 
 if neobundle#tap('unite-outline') " {{{3
