@@ -121,6 +121,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'mattn/sonictemplate-vim'
   NeoBundle 'jimsei/winresizer'
   NeoBundle 'supermomonga/projectlocal.vim'
+  NeoBundle 'evidens/vim-twig'
 
   NeoBundle 'joedicastro/vim-molokai256'
   NeoBundle 'tomasr/molokai'
@@ -700,6 +701,11 @@ if neobundle#tap('winresizer') " {{{3
   let g:winresizer_enable = 1
   let g:winresizer_start_key = '<C-E>'
 endif " }}}
+
+if neobundle#tap('projectlocal.vim') " {{{3
+  let g:projectlocal#default_filetypes = []
+endif " }}}
+
 " }}}
 " }}}
 
