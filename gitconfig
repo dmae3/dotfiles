@@ -33,6 +33,7 @@
     wc = whatchanged
     ls = log --stat
     lp = log -p
+    ln = log --name-status
     la = log --pretty=\"format:%ad %h (%an): %s\" --date=short
     lr = log origin
     oneline = log --pretty=oneline
