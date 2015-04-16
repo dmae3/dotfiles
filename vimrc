@@ -840,6 +840,8 @@ nnoremap <C-w>t :tabnew<CR>
 nnoremap <C-w>c :tabclose<CR>
 nnoremap <silent> <C-n> gt
 nnoremap <silent> <C-p> gT
+nnoremap <silent> <Space>o :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>j
+nnoremap <silent> <Space>O :<C-u>for i in range(1, v:count1) \| call append(line('.')-1,   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>k
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 vnoremap <silent> // y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
 vnoremap /r "xy;%s/<C-R>=escape(@x, '\\/.*$^~[]')<CR>//gc<Left><Left><Left>
