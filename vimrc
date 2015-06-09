@@ -120,8 +120,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'kien/rainbow_parentheses.vim'
   NeoBundleLazy 'mattn/sonictemplate-vim'
   NeoBundle 'jimsei/winresizer'
-  NeoBundle 'supermomonga/projectlocal.vim'
-  NeoBundle 'evidens/vim-twig'
+  NeoBundle 'mukiwu/vim-twig'
 
   NeoBundle 'joedicastro/vim-molokai256'
   NeoBundle 'tomasr/molokai'
@@ -405,15 +404,7 @@ if neobundle#tap('unite.vim') " {{{3
   nnoremap <silent> <C-u>l :<C-u>Unite -start-insert locate<CR>
   nnoremap <silent> <C-u>g :<C-u>Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep<CR>
   nnoremap <silent> <C-u>j :<C-u>Unite -start-insert -buffer-name=files buffer_tab file_mru<CR>
-  nnoremap <silent> <C-u>p :<C-u>call Unite_project_files('-start-insert')<CR>
   nnoremap <silent> <C-u>b :<C-u>Unite bookmark:*<CR>
-  function! Unite_project_files(options)
-    if exists('b:projectlocal_root_dir')
-      execute ':Unite file_rec/async:' . b:projectlocal_root_dir . ' ' . a:options
-    else
-      echo "You are not in any project."
-    endif
-  endfunction
   call unite#custom#source('file_rec/async', 'ignore_pattern', '\(png\|gif\|jpeg\|jpg\)$')
   let g:unite_source_rec_max_cache_files = 20000
   " unite-grep in visual mode
