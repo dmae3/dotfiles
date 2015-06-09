@@ -112,7 +112,6 @@ if s:bundled('neobundle.vim')
   " NeoBundle 'Yggdroot/indentLine'
   NeoBundle 'nathanaelkane/vim-indent-guides'
   NeoBundle 'bling/vim-airline'
-  NeoBundle 'osyo-manga/vim-anzu'
   NeoBundle 'rhysd/accelerated-jk'
   NeoBundleLazy 'thinca/vim-quickrun'
   NeoBundleLazy 'kana/vim-smartinput'
@@ -617,15 +616,6 @@ if neobundle#tap('vim-airline') " {{{3
   let g:airline_symbols.whitespace = 'Ξ'
 endif " }}}
 
-if neobundle#tap('vim-anzu') " {{{3
-  " Treat folding well
-  nnoremap <expr> n anzu#mode#mapexpr('n', '', 'zzzv')
-  nnoremap <expr> N anzu#mode#mapexpr('N', '', 'zzzv')
-  " Start search with anzu
-  nmap * <Plug>(anzu-star-with-echo)
-  nmap # <Plug>(anzu-sharp-with-echo)
-endif " }}}
-
 if neobundle#tap('vim-smartinput') " {{{3
   call neobundle#config({
     \ 'autoload': {
@@ -902,6 +892,10 @@ augroup END
 augroup SqlFileType
   autocmd!
   autocmd FileType sql setlocal expandtab tabstop=2 shiftwidth=2
+augroup END
+augroup YamlFileType
+  autocmd!
+  autocmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2
 augroup END
 augroup RSpecFileType
   autocmd!
