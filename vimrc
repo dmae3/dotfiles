@@ -120,7 +120,6 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'kien/rainbow_parentheses.vim'
   NeoBundleLazy 'mattn/sonictemplate-vim'
   NeoBundle 'jimsei/winresizer'
-  NeoBundle 'supermomonga/projectlocal.vim'
   NeoBundle 'evidens/vim-twig'
 
   NeoBundle 'joedicastro/vim-molokai256'
@@ -543,7 +542,7 @@ if neobundle#tap('vim-quickrun') " {{{3
     \ 'hook/echo/enable_output_exit': 1,
     \ 'hook/echo/priority_exit': 10000,
     \ }
-  let g:quickrun_config['ruby.rspec'] = {
+  let g:quickrun_config['rspec.ruby'] = {
     \ 'command': 'rspec',
     \ 'cmdopt': '-cfd',
     \ }
@@ -722,6 +721,7 @@ set autoread
 set backspace=indent,eol,start
 set formatoptions=lmoq
 set vb t_vb=
+set splitright
 set splitbelow
 set nobackup
 set writebackup
@@ -914,8 +914,8 @@ augroup SqlFileType
 augroup END
 augroup RSpecFileType
   autocmd!
-  autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=ruby.rspec
-  autocmd FileType ruby.rspec setlocal expandtab tabstop=2 shiftwidth=2
+  autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=rspec.ruby
+  autocmd FileType rspec.ruby setlocal expandtab tabstop=2 shiftwidth=2
 augroup END
 " }}}
 
