@@ -1,0 +1,121 @@
+#=============================
+# LANG
+#=============================
+export LANG=ja=JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
+export LC_CTYPE=ja_JP.UTF-8
+
+#=============================
+# PATH
+#=============================
+PATH=$HOME/local/bin:$HOME/go/bin:$PATH
+export TERM=xterm-256color
+fpath=($HOME/.zsh-completions $fpath)
+
+#=============================
+# Key Binding
+#=============================
+# Like Emacs
+bindkey -e
+
+#=============================
+# alias
+#=============================
+# PAGER
+alias -g L="|& $PAGER"
+alias rr="command rm -rf"
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
+alias po="popd"
+
+# ls & ps
+case $(uname) in
+    *BSD|Darwin)
+  if [ -x "$(which gnuls)" ]; then
+      alias ls="gnuls"
+      alias la="ls -lhAF --color=auto"
+  else
+      alias la="ls -lhAFG"
+  fi
+  alias ps="ps -fU$(whoami)"
+  ;;
+    SunOS)
+  if [ -x "`which gls`" ]; then
+      alias ls="gls"
+      alias la="ls -lhAF --color=auto"
+  else
+      alias la="ls -lhAF"
+  fi
+  alias ps="ps -fl -u$(/usr/xpg4/bin/id -un)"
+  ;;
+    *)
+  alias la="ls -lhAF --color=auto"
+  alias ps="ps -fU$(whoami) --forest"
+  ;;
+esac
+
+# grep
+if type ggrep > /dev/null 2>&1; then
+  alias grep="ggrep"
+fi
+export GREP_OPTIONS
+## don't match vinary files
+GREP_OPTIONS="--binary-files=without-match"
+grep_version="$(grep --version | head -n 1 | sed -e 's/^[^0-9.]*\([0-9.]*\)[^0-9.]*$/\1/')"
+case "$grep_version" in
+  1.*|2.[0-4].*|2.5.[0-3])
+  ;;
+  *)
+    GREP_OPTIONS="--directories=recurse $GREP_OPTIONS"
+  ;;
+esac
+## ignore control files
+if grep --help 2>&1 | grep -q -- --exclude-dir; then
+  GREP_OPTIONS="--exclude-dir=.svn $GREP_OPTIONS"
+  GREP_OPTIONS="--exclude-dir=.git $GREP_OPTIONS"
+  GREP_OPTIONS="--exclude-dir=.deps $GREP_OPTIONS"
+  GREP_OPTIONS="--exclude-dir=.libs $GREP_OPTIONS"
+fi
+## colours if possible
+if grep --help 2>&1 | grep -q -- --color; then
+  GREP_OPTIONS="--color=auto $GREP_OPTIONS"
+fi
+
+# exit
+alias x="exit"
+
+# tmux alias
+if which tmux &> /dev/null; then
+  alias tm ="tmux"
+  alias tml="tmux ls"
+  alias tma="tmux a -t "
+fi
+
+
+#=============================
+# misc
+#=============================
+export EDITOR=vim
+
+# 256 colours test
+function pcolor() {
+  for ((f = 0; f < 255; f++)); do
+    printf "\e[38;5;%dm %3d#\e[m" $f $f
+    if [[ $f%8 -eq 7 ]] then
+      printf "\n"
+    fi
+  done
+  echo
+}
+
+# 38 colours test
+function ppcolor() {
+  for ((f = 0; f < 37; f++)); do
+     printf "\e[1;%dm %2d#\e[m" $f $f
+     if [[ $f%8 -eq 7 ]] then
+       printf "\n"
+     fi
+  done
+  echo
+}

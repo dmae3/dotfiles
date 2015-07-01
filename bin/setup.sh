@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dotfiles=( vim vimrc zshrc tmux.conf dir_colors vimshrc bashrc gitconfig agignore )
+dotfiles=( vim vimrc zshrc tmux.conf vimshrc bashrc gitconfig agignore vimperatorrc vimperator)
 for file in ${dotfiles[@]}
 do
   if [ -a $HOME/.$file ]; then

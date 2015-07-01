@@ -639,8 +639,8 @@ if neobundle#tap('vim-smartinput-endwise') " {{{3
     call smartinput#map_to_trigger('i', '<Plug>(my_cr)', '<Enter>', '<Enter>')
     imap <expr><CR> !pumvisible() ? "\<Plug>(my_cr)" :
       \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
-      \ neocomplcache#close_popup()
-      " \ neocomplete#close_popup()
+      \ neocomplete#close_popup()
+      " \ neocomplcache#close_popup()
   endfunction
 endif " }}}
 

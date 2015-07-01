@@ -1,315 +1,96 @@
-#=============================
-# LANG
-#=============================
-export LANG=ja=JP.UTF-8
-export LC_ALL=ja_JP.UTF-8
-export LC_CTYPE=ja_JP.UTF-8
-#export LANG=ja_JP.eucJP
-#export LC_ALL=ja_JP.eucJP
-#export LC_CTYPE=ja_JP.eucJP
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/dotfiles/oh-my-zsh
 
-#=============================
-# PATH
-#=============================
-PATH=$HOME/local/bin:$PATH
-export TERM=xterm-256color
-fpath=($HOME/.zsh-completions $fpath)
-
-#=============================
-# Key Binding
-#=============================
-# Like Emacs
-bindkey -e
-
-#=============================
-# colour
-#=============================
-local gray=$'%{\e[0;30m%}'
-local red=$'%{\e[0;31m%}'
-local green=$'%{\e[0;32m%}'
-local yellow=$'%{\e[0;33m%}'
-local blue=$'%{\e[0;34m%}'
-local purple=$'%{\e[0;35m%}'
-local light_blue=$'%{\e[0;36m%}'
-local white=$'%{\e[0;37m%}'
-local GRAY=$'%{\e[1;30m%}'
-local RED=$'%{\e[1;31m%}'
-local GREEN=$'%{\e[1;32m%}'
-local YELLOW=$'%{\e[1;33m%}'
-local BLUE=$'%{\e[1;34m%}'
-local PURPLE=$'%{\e[1;35m%}'
-local LIGHT_BLUE=$'%{\e[1;36m%}'
-local WHITE=$'%{\e[1;37m%}'
-local DEFAULT=$white
-
-#=============================
-# Move
-#=============================
-# change directory with only deirectory name
-setopt auto_cd
-# add directory name to candidate of campletion after change directory
-setopt auto_pushd
-# directory path in not finding file
-cdpath=(~)
-# display directory stack after change directory
-chpwd_functions=($chpwd_functions dirs)
-# move to pushd directory
-setopt autopushd
-
-#=============================
-# History
-#=============================
-# history file
-HISTFILE=~/.zsh_history
-# the number of files on memory
-HISTSIZE=10000000
-# the number of saving files
-SAVEHIST=$HISTSIZE
-# save the times in history file
-setopt extended_history
-# don't register same command in history
-setopt hist_ignore_dups
-# don't save a command starting with space in history
-setopt hist_ignore_space
-# add it to history
-setopt inc_append_history
-# share history between zsh processes
-setopt share_history
-# don't use C-s/C-q for searching history
-setopt no_flow_control
-
-#=============================
-# Prompt
-#=============================
-setopt prompt_subst
-setopt prompt_percent
-# nodisplay RPROMPT after committing a command
-setopt transient_rprompt
-
-# left prompt
-prompt_bar_left_status="%(?.$WHITE.$RED)%}%?"
-# prompt_bar_left_self="$RED%n@%m"
-prompt_bar_left_self="$RED@%m"
-prompt_bar_left_date=" %{%B%}$BLUE%D{%H:%M:%S}%{%b%} "
-prompt_bar_left_path="%{%B$GREEN%}%~%{%b%}"
-prompt_bar_left="${prompt_bar_left_status} ${prompt_bar_left_self} ${prompt_bar_left_date} ${prompt_bar_left_path}"
-
-# left prompt in the second line
-prompt_left="%(1j,(%j),)%{%B%}$GREEN%#%{%b%} "
-
-# Version Controll System Infomations
-autoload -Uz colors
-autoload -Uz vcs_info
-autoload -Uz add-zsh-hook
-
-zstyle ':vcs_info:*' enable git svn hg bzr
-zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
-zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
-zstyle ':vcs_info:bzr:*' use-simple true
-
-# if the response is too slow, comment out below.
-autoload -Uz is-at-least
-if is-at-least 4.3.10; then
-  zstyle ':vcs_info:git:*' check-for-changes true
-  zstyle ':vcs_info:git:*' stagedstr "+"
-  zstyle ':vcs_info:git:*' unstagedstr "-"
-  zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u'
-  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u'
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+# ZSH_THEME="amuse"
+# ZSH_THEME="dst"
+# ZSH_THEME="dstufft"
+# ZSH_THEME="fino-time"
+# ZSH_THEME="junkfood"
+# ZSH_THEME="rkj"
+if [ ! -e $ZSH/themes/daine46.zsh-theme ]; then
+    ln -s $HOME/dotfiles/zsh-themes/daine46.zsh-theme $ZSH/themes/daine46.zsh-theme
 fi
+ZSH_THEME="daine46"
 
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-# sequence of the update sequence
-update_prompt()
-{
-    PROMPT="${prompt_bar_left}"$'\n'"${prompt_left}"
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-    RPROMPT="%1(v|${LIGHT_BLUE}%1v%f|)"
-    if [ -n "$VIRTUAL_ENV" ]; then
-      RPROMPT="${RPROMPT} ${LIGHT_BLUE}@(`basename \"$VIRTUAL_ENV\"`)${DEFAULT}"
-    fi
-}
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
-# sequence before committing a command
-add-zsh-hook precmd update_prompt
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
 
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
-#=============================
-# Complition
-#=============================
-autoload -U compinit
-compinit
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-# group the options
-zstyle ':completion:*' format '%B%d%b'
-zstyle ':completion:*' group-name ''
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-# select candidates from menu
-zstyle ':completion:*:default' menu select=2
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
 
-# complitions with colours
-zstyle ':completion:*:default' list-colors ""
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# show obscure candidates
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
 
-# order of candidates
-zstyle ':completion:*' completer \
-    _oldlist _complete _match _history _ignored _approximate _prefix
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
-# use cache
-zstyle ':completion:*' use-cache yes
-# use precise infomations
-zstyle ':completion:*' verbose yes
-# use PATH on sudo
-zstyle ':completion:sudo:*' environ PATH="$SUDO_PATH:$PATH"
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git aws brew brew-cask docker extract tmux vagrant zsh_reload)
 
-# complement on cursor
-setopt complete_in_word
-# do not expand glob
-setopt glob_complete
-# expand history
-setopt hist_expand
-# no beep
-setopt no_beep
-# sort by number
-setopt numeric_glob_sort
+# User configuration
 
-# expansion
-# enable after "~" and "="
-setopt magic_equal_subst
-# enable expansive glob
-setopt extended_glob
-# add / automatically
-setopt mark_dirs
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export MANPATH="/usr/local/man:$MANPATH"
 
-# display PID with jobs
-setopt long_list_jobs
+source $ZSH/oh-my-zsh.sh
 
-# display time of committing
-REPORTTIME=3
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
-# display user's behaviours
-watch="all"
-log
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
-# prohibit logout with C-d
-setopt ignore_eof
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-# consider '/' as word
-WORDCHARS=${WORDCHARS:s,/,,}
-# consider '|' as word
-WORDCHARS="${WORDCHARS}|"
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# exception
-fignore=(CVS .svn)
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#=============================
-# alias
-#=============================
-# PAGER
-alias -g L="|& $PAGER"
-alias rr="command rm -rf"
-alias rm="rm -i"
-alias cp="cp -i"
-alias mv="mv -i"
-alias po="popd"
-
-# ls & ps
-case $(uname) in
-    *BSD|Darwin)
-  if [ -x "$(which gnuls)" ]; then
-      alias ls="gnuls"
-      alias la="ls -lhAF --color=auto"
-  else
-      alias la="ls -lhAFG"
-  fi
-  alias ps="ps -fU$(whoami)"
-  ;;
-    SunOS)
-  if [ -x "`which gls`" ]; then
-      alias ls="gls"
-      alias la="ls -lhAF --color=auto"
-  else
-      alias la="ls -lhAF"
-  fi
-  alias ps="ps -fl -u$(/usr/xpg4/bin/id -un)"
-  ;;
-    *)
-  alias la="ls -lhAF --color=auto"
-  alias ps="ps -fU$(whoami) --forest"
-  ;;
-esac
-
-# grep
-if type ggrep > /dev/null 2>&1; then
-  alias grep="ggrep"
-fi
-export GREP_OPTIONS
-## don't match vinary files
-GREP_OPTIONS="--binary-files=without-match"
-grep_version="$(grep --version | head -n 1 | sed -e 's/^[^0-9.]*\([0-9.]*\)[^0-9.]*$/\1/')"
-case "$grep_version" in
-  1.*|2.[0-4].*|2.5.[0-3])
-  ;;
-  *)
-    GREP_OPTIONS="--directories=recurse $GREP_OPTIONS"
-  ;;
-esac
-## ignore control files
-if grep --help 2>&1 | grep -q -- --exclude-dir; then
-  GREP_OPTIONS="--exclude-dir=.svn $GREP_OPTIONS"
-  GREP_OPTIONS="--exclude-dir=.git $GREP_OPTIONS"
-  GREP_OPTIONS="--exclude-dir=.deps $GREP_OPTIONS"
-  GREP_OPTIONS="--exclude-dir=.libs $GREP_OPTIONS"
-fi
-## colours if possible
-if grep --help 2>&1 | grep -q -- --color; then
-  GREP_OPTIONS="--color=auto $GREP_OPTIONS"
-fi
-
-# exit
-alias x="exit"
-
-# tmux alias
-if which tmux &> /dev/null; then
-  alias tm ="tmux"
-  alias tml="tmux ls"
-  alias tma="tmux a -t "
-fi
-
-
-#=============================
-# misc
-#=============================
-export EDITOR=vim
-
-# 256 colours test
-function pcolor() {
-  for ((f = 0; f < 255; f++)); do
-    printf "\e[38;5;%dm %3d#\e[m" $f $f
-    if [[ $f%8 -eq 7 ]] then
-      printf "\n"
-    fi
-  done
-  echo
-}
-
-# 38 colours test
-function ppcolor() {
-  for ((f = 0; f < 37; f++)); do
-     printf "\e[1;%dm %2d#\e[m" $f $f
-     if [[ $f%8 -eq 7 ]] then
-       printf "\n"
-     fi
-  done
-  echo
-}
-
-# load local settings
-if [ -e $HOME/zshrc.local ]; then
-  source $HOME/zshrc.local
-fi
+source $HOME/dotfiles/zshrc.mine
+[ -f ~/zshrc.local ] && source ~/.zshrc.local
