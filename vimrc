@@ -1,13 +1,13 @@
-" ---------------------------------------------------------------
-"  ________  ________  ___        ___  ________  ________
-" |\   ___ \|\   __  \|\  \      |\  \|\   __  \|\   ___  \
-" \ \  \_|\ \ \  \|\  \ \  \     \ \  \ \  \|\  \ \  \\ \  \
-"  \ \  \ \\ \ \   __  \ \  \  __ \ \  \ \   ____\ \  \\ \  \
-"   \ \  \_\\ \ \  \ \  \ \  \|\  \\_\  \ \  \___|\ \  \\ \  \
-"    \ \_______\ \__\ \__\ \__\ \________\ \__\    \ \__\\ \__\
-"     \|_______|\|__|\|__|\|__|\|________|\|__|     \|__| \|__|
+" -----------------------------------------------------------------------
+"  ________  ________  ___  ________   _______   ___   ___  ________
+" |\   ___ \|\   __  \|\  \|\   ___  \|\  ___ \ |\  \ |\  \|\   ____\
+" \ \  \_|\ \ \  \|\  \ \  \ \  \\ \  \ \   __/|\ \  \\_\  \ \  \___|
+"  \ \  \ \\ \ \   __  \ \  \ \  \\ \  \ \  \_|/_\ \______  \ \  \____
+"   \ \  \_\\ \ \  \ \  \ \  \ \  \\ \  \ \  \_|\ \|_____|\  \ \  ___  \
+"    \ \_______\ \__\ \__\ \__\ \__\\ \__\ \_______\     \ \__\ \_______\
+"     \|_______|\|__|\|__|\|__|\|__| \|__|\|_______|      \|__|\|_______|
 "
-" ---------------------------------------------------------------
+" -----------------------------------------------------------------------
 " Basic settings {{{1
 
 set encoding=utf-8
@@ -48,7 +48,7 @@ endfunction
 " }}}
 
 
-" ---------------------------------------------------------------
+" -----------------------------------------------------------------------
 " Functions {{{1
 
 function! s:get_list(scope, name) " {{{
@@ -63,10 +63,10 @@ endfunction " }}}
 " }}}
 
 
-" ---------------------------------------------------------------
+" -----------------------------------------------------------------------
 " Plugins {{{1
 
-"------------------------------------------------------------------------------
+" -----------------------------------------------------------------------
 " NeoBundle {{{2
 
 if has('vim_starting') && isdirectory($NEOBUNDLEPATH)
@@ -120,6 +120,8 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'mattn/sonictemplate-vim'
   NeoBundle 'jimsei/winresizer'
   NeoBundle 'mukiwu/vim-twig'
+  NeoBundleLazy 'fatih/vim-go'
+  NeoBundle 'scrooloose/syntastic'
 
   NeoBundle 'joedicastro/vim-molokai256'
   NeoBundle 'tomasr/molokai'
@@ -136,7 +138,7 @@ endif
 "}}}
 
 
-"---------------------------------------------------------------------------
+" -----------------------------------------------------------------------
 " Plugins' settings {{{2
 
 if neobundle#tap('neocomplete.vim') " {{{3
@@ -575,7 +577,7 @@ if neobundle#tap('vim-indent-guides') " {{{3
   let g:indent_guides_start_level = 2
   let g:indent_guides_guide_size = 1
   let g:indent_guides_space_guides = 1
-  let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'vimfiler', 'quickfix', 'unite']
+  let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'vimfiler', 'quickfix', 'unite', 'go']
 
   augroup IndentGuides
     autocmd!
@@ -683,15 +685,33 @@ if neobundle#tap('winresizer') " {{{3
   let g:winresizer_start_key = '<C-E>'
 endif " }}}
 
-if neobundle#tap('projectlocal.vim') " {{{3
-  let g:projectlocal#default_filetypes = []
+if neobundle#tap('vim-go') " {{{3
+  call neobundle#config({
+    \ 'autoload': {
+    \   'filetypes': 'go',
+    \ }
+    \})
+
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_build_constraints = 1
+endif " }}}
+
+if neobundle#tap('syntastic') " {{{3
+  let g:syntastic_go_checkers = ['go', 'golint']
+  let g:syntastic_mode_map = {
+  \ "mode" : "active",
+  \ "active_filetypes" : ["go"],
+  \}
 endif " }}}
 
 " }}}
 " }}}
 
 
-" ---------------------------------------------------------------
+" -----------------------------------------------------------------------
 " Setting options {{{1
 
 " enable syntax highlighting
@@ -732,6 +752,7 @@ set shiftwidth=4
 set softtabstop=0
 set t_ut=
 set ttyfast
+set listchars=tab:▸\ 
 
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
@@ -806,7 +827,7 @@ endfunction
 "}}}
 
 
-" ---------------------------------------------------------------
+" -----------------------------------------------------------------------
 " Keymappings {{{1
 
 noremap <Space>h ^
@@ -858,7 +879,7 @@ endif
 "}}}
 
 
-" ---------------------------------------------------------------
+" -----------------------------------------------------------------------
 " Commands {{{1
 
 command! Ev edit $MYVIMRC
@@ -867,7 +888,7 @@ command! Sw :w !sudo tee >/dev/null %
 "}}}
 
 
-" ---------------------------------------------------------------
+" -----------------------------------------------------------------------
 " Filetype {{{1
 
 augroup CommonFileType
@@ -903,10 +924,14 @@ augroup RSpecFileType
   autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=rspec.ruby
   autocmd FileType rspec.ruby setlocal expandtab tabstop=2 shiftwidth=2
 augroup END
+augroup GoFileType
+  autocmd!
+  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4 list
+augroup END
 " }}}
 
 
-" ---------------------------------------------------------------
+" -----------------------------------------------------------------------
 " __END__  " {{{1
 " vim: expandtab softtabstop=2 shiftwidth=2
 " vim: foldmethod=marker
