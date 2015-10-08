@@ -93,4 +93,4 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 source $HOME/dotfiles/zshrc.mine
-[ -f ~/zshrc.local ] && source ~/.zshrc.local
+[ -f ~/zshrc.local ] && source ~/zshrc.local

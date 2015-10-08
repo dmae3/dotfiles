@@ -123,6 +123,10 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'fatih/vim-go'
   NeoBundle 'scrooloose/syntastic'
 
+  NeoBundle 'ctrlpvim/ctrlp.vim'
+  NeoBundle 'mattn/ctrlp-filer', {'depends': ['ctrlpvim/ctrlp.vim']}
+  NeoBundle 'tacahiroy/ctrlp-funky', {'depends': ['ctrlpvim/ctrlp.vim']}
+
   NeoBundle 'joedicastro/vim-molokai256'
   NeoBundle 'tomasr/molokai'
   NeoBundle 'nanotech/jellybeans.vim'
@@ -707,6 +711,10 @@ if neobundle#tap('syntastic') " {{{3
   \}
 endif " }}}
 
+if neobundle#tap('ctrlp.vim') " {{{3
+  let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
+endif " }}}
+
 " }}}
 " }}}
 
@@ -927,6 +935,14 @@ augroup END
 augroup GoFileType
   autocmd!
   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4 list
+augroup END
+augroup ShFileType
+  autocmd!
+  autocmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2
+augroup END
+augroup PongoFileType
+  autocmd!
+  autocmd BufNewFile,BufRead *.pongo set filetype=twig
 augroup END
 " }}}
 
