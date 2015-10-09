@@ -712,6 +712,7 @@ if neobundle#tap('syntastic') " {{{3
 endif " }}}
 
 if neobundle#tap('ctrlp.vim') " {{{3
+  let g:ctrlp_map = '<c-z>'
   let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 endif " }}}
 
@@ -785,7 +786,7 @@ elseif &term =~ "xterm-color"
 endif
 colorscheme molokai
 
-function! s:LetAndMkdir(variable, path) " {{{
+function! s:LetAndMkdir(variable, path)
   try
     if !isdirectory(a:path)
       call mkdir(a:path, 'p')
@@ -797,7 +798,7 @@ function! s:LetAndMkdir(variable, path) " {{{
   endtry
 
   execute printf("let %s = a:path", a:variable)
-endfunction "}}}
+endfunction
 
 if has('persistent_undo')
   set undofile
