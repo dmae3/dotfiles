@@ -14,10 +14,14 @@ set encoding=utf-8
 scriptencoding utf-8
 let g:mapleader=','
 
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
 if has('vim_starting') && has('reltime')
   let g:startuptime = reltime()
-  augroup vimrc-startuptime
-    autocmd! VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
+  augroup MyAutoCmd
+    autocmd VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
       \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
   augroup END
 endif
@@ -111,7 +115,8 @@ if s:bundled('neobundle.vim')
   NeoBundle 'scrooloose/nerdcommenter'
   " NeoBundle 'Yggdroot/indentLine'
   NeoBundle 'nathanaelkane/vim-indent-guides'
-  NeoBundle 'bling/vim-airline'
+  NeoBundle 'vim-airline/vim-airline'
+  NeoBundle 'vim-airline/vim-airline-themes', {'depends': ['vim-airline/vim-airline']}
   NeoBundle 'rhysd/accelerated-jk'
   NeoBundleLazy 'thinca/vim-quickrun'
   NeoBundleLazy 'kana/vim-smartinput'
@@ -119,13 +124,16 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'kien/rainbow_parentheses.vim'
   NeoBundleLazy 'mattn/sonictemplate-vim'
   NeoBundle 'jimsei/winresizer'
-  NeoBundle 'mukiwu/vim-twig'
-  NeoBundleLazy 'fatih/vim-go'
   NeoBundle 'scrooloose/syntastic'
+  NeoBundle 'Shougo/vimshell.vim', {'depends': ['Shougo/vimproc.vim']}
 
   NeoBundle 'ctrlpvim/ctrlp.vim'
   NeoBundle 'mattn/ctrlp-filer', {'depends': ['ctrlpvim/ctrlp.vim']}
   NeoBundle 'tacahiroy/ctrlp-funky', {'depends': ['ctrlpvim/ctrlp.vim']}
+
+  NeoBundle 'mukiwu/vim-twig'
+  NeoBundleLazy 'fatih/vim-go'
+  NeoBundleLazy 'tpope/vim-rails'
 
   NeoBundle 'joedicastro/vim-molokai256'
   NeoBundle 'tomasr/molokai'
@@ -415,7 +423,7 @@ if neobundle#tap('unite.vim') " {{{3
   " unite-grep in visual mode
   vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
   " change directory as default action
-  autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
+  autocmd MyAutoCmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
   " open bookmarks as VimFiler
   call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 
@@ -539,18 +547,21 @@ if neobundle#tap('vim-quickrun') " {{{3
     \ 'hook/echo/enable_output_exit': 1,
     \ 'hook/echo/priority_exit': 10000,
     \ }
+  let s:rspec = getcwd() . '/bin/rspec'
   let g:quickrun_config['rspec.ruby'] = {
-    \ 'command': 'rspec',
+    \ 'command': s:rspec,
+    \ 'exec': '%c',
     \ 'cmdopt': '-cfd',
     \ }
+    " \ 'exec': 'bundle exec %c',
 
   nnoremap [quickrun] <Nop>
   nmap <Leader>q [quickrun]
   nnoremap <silent> [quickrun]r :QuickRun<CR>
   nnoremap <silent> [quickrun]l :call QRunRspecCurrentLine()<CR>
   function! QRunRspecCurrentLine()
-    let line = line(".")
-    exe ":QuickRun -exec '%c %s%o' -cmdopt ':" . line . " -cfd '"
+    let l:line = line(".")
+    exe ":QuickRun -exec '%c %s%o' -cmdopt ':" . l:line . " -cfd '"
   endfunction
 endif " }}}
 
@@ -583,8 +594,7 @@ if neobundle#tap('vim-indent-guides') " {{{3
   let g:indent_guides_space_guides = 1
   let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'vimfiler', 'quickfix', 'unite', 'go']
 
-  augroup IndentGuides
-    autocmd!
+  augroup MyAutoCmd
     autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=60
     autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=236
   augroup END
@@ -663,8 +673,7 @@ if neobundle#tap('rainbow_parentheses.vim') " {{{3
     \ }
     \ })
 
-  augroup Rainbow
-    autocmd!
+  augroup MyAutoCmd
     autocmd VimEnter * RainbowParenthesesToggle
     " autocmdau Syntax * RainbowParenthesesLoadRound
     " autocmdau Syntax * RainbowParenthesesLoadSquare
@@ -689,10 +698,10 @@ if neobundle#tap('winresizer') " {{{3
   let g:winresizer_start_key = '<C-E>'
 endif " }}}
 
-if neobundle#tap('vim-go') " {{{3
+if neobundle#tap('vim-rails') " {{{3
   call neobundle#config({
     \ 'autoload': {
-    \   'filetypes': 'go',
+    \   'filetypes': 'ruby',
     \ }
     \})
 
@@ -703,12 +712,242 @@ if neobundle#tap('vim-go') " {{{3
   let g:go_highlight_build_constraints = 1
 endif " }}}
 
+if neobundle#tap('vim-go') " {{{3
+  call neobundle#config({
+    \ 'autoload': {
+    \   'filetypes': 'go',
+    \ }
+    \})
+
+endif " }}}
+
 if neobundle#tap('syntastic') " {{{3
-  let g:syntastic_go_checkers = ['go', 'golint']
   let g:syntastic_mode_map = {
-  \ "mode" : "active",
-  \ "active_filetypes" : ["go"],
+  \ 'mode' : 'active',
+  \ 'active_filetypes' : ['go', 'ruby'],
   \}
+  let g:syntastic_go_checkers = ['go', 'golint']
+  let g:syntastic_ruby_checkers = ['rubocop']
+endif " }}}
+
+if neobundle#tap('vimshell.vim') " {{{3
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+" let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]%p", "(%s)-[%b|%a]%p")'
+let g:vimshell_right_prompt =
+      \ 'gita#statusline#format("%{|/}ln%lb%{ <> |}rn%{/|}rb")'
+let g:vimshell_prompt = '% '
+"let g:vimshell_environment_term = 'xterm'
+let g:vimshell_split_command = ''
+let g:vimshell_enable_transient_user_prompt = 1
+let g:vimshell_force_overwrite_statusline = 1
+
+" let g:vimshell_prompt_expr =
+"     \ 'escape($USER . ":". fnamemodify(getcwd(), ":~")."%", "\\[]()?! ")." "'
+" let g:vimshell_prompt_pattern = '^\f\+:\%(\f\|\\.\)\+% '
+
+autocmd MyAutoCmd FileType vimshell call s:vimshell_settings()
+function! s:vimshell_settings() abort
+  " Display user name on Linux.
+  "let g:vimshell_prompt = $USER."% "
+
+  " Use zsh history.
+  let g:vimshell_external_history_path = expand('~/.zsh-history')
+
+  call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
+  call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
+  let g:vimshell_execute_file_list['zip'] = 'zipinfo'
+  call vimshell#set_execute_file('tgz,gz', 'gzcat')
+  call vimshell#set_execute_file('tbz,bz2', 'bzcat')
+
+  " Use gnome-terminal.
+  let g:vimshell_use_terminal_command = 'gnome-terminal -e'
+
+  " Initialize execute file list.
+  let g:vimshell_execute_file_list = {}
+  call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
+  let g:vimshell_execute_file_list['rb'] = 'ruby'
+  let g:vimshell_execute_file_list['pl'] = 'perl'
+  let g:vimshell_execute_file_list['py'] = 'python'
+  call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
+
+  inoremap <buffer><expr>'  pumvisible() ? "\<C-y>" : "'"
+  imap <buffer><BS>  <Plug>(vimshell_another_delete_backward_char)
+  imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
+  imap <buffer><C-k>  <Plug>(vimshell_zsh_complete)
+  imap <buffer><C-g>  <Plug>(vimshell_history_neocomplete)
+
+  xmap <buffer> y <Plug>(operator-concealedyank)
+
+  nnoremap <silent><buffer> <C-j>
+        \ :<C-u>Unite -buffer-name=files
+        \ -default-action=lcd directory_mru<CR>
+
+  call vimshell#altercmd#define('u', 'cdup')
+  call vimshell#altercmd#define('g', 'git')
+  call vimshell#altercmd#define('i', 'iexe')
+  call vimshell#altercmd#define('t', 'texe')
+  call vimshell#set_alias('l.', 'ls -d .*')
+  call vimshell#set_alias('gvim', 'gexe gvim')
+  call vimshell#set_galias('L', 'ls -l')
+  call vimshell#set_galias('time', 'exe time -p')
+  call vimshell#set_alias('.', 'source')
+
+  " Auto jump.
+  call vimshell#set_alias('j', ':Unite -buffer-name=files
+        \ -default-action=lcd -no-split -input=$$args directory_mru')
+
+  " Console.
+  call vimshell#set_alias('con',
+        \ 'lilyterm -d `=b:vimshell.current_dir`')
+
+  call vimshell#set_alias('up', 'cdup')
+
+  call vimshell#hook#add('chpwd',
+        \ 'my_chpwd', s:vimshell_hooks.chpwd)
+  " call vimshell#hook#add('emptycmd',
+  "     \ 'my_emptycmd', s:vimshell_hooks.emptycmd)
+  call vimshell#hook#add('notfound',
+        \ 'my_notfound', s:vimshell_hooks.notfound)
+  call vimshell#hook#add('preprompt',
+        \ 'my_preprompt', s:vimshell_hooks.preprompt)
+  call vimshell#hook#add('preexec',
+        \ 'my_preexec', s:vimshell_hooks.preexec)
+  " call vimshell#hook#set('preexec',
+  "      \ [s:SID_PREFIX() . 'vimshell_hooks_preexec'])
+endfunction
+
+autocmd MyAutoCmd FileType int-* call s:interactive_settings()
+function! s:interactive_settings() abort
+  call vimshell#hook#set('input', [s:vimshell_hooks.input])
+endfunction
+
+autocmd MyAutoCmd FileType term-* call s:terminal_settings()
+function! s:terminal_settings() abort
+  inoremap <silent><buffer><expr> <Plug>(vimshell_term_send_semicolon)
+        \ vimshell#term_mappings#send_key(';')
+  inoremap <silent><buffer><expr> j<Space>
+        \ vimshell#term_mappings#send_key('j')
+  "inoremap <silent><buffer><expr> <Up>
+  "      \ vimshell#term_mappings#send_keys("\<ESC>[A")
+
+  " Sticky key.
+  imap <buffer><expr> ;  <SID>texe_sticky_func()
+
+  " Escape key.
+  iunmap <buffer> <ESC><ESC>
+  imap <buffer> <ESC>         <Plug>(vimshell_term_send_escape)
+endfunction
+function! s:texe_sticky_func() abort "{{{
+  let sticky_table = {
+        \',' : '<', '.' : '>', '/' : '?',
+        \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
+        \'6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')',
+        \ '-' : '_', '=' : '+',
+        \';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '|',
+        \}
+  let special_table = {
+        \ "\<ESC>" : "\<ESC>", "\<CR>" : ";\<CR>"
+        \ "\<Space>" : "\<Plug>(vimshell_term_send_semicolon)",
+        \}
+
+  if mode() !~# '^c'
+    echo 'Input sticky key: '
+  endif
+  let char = ''
+
+  while char == ''
+    let char = nr2char(getchar())
+  endwhile
+
+  if char =~ '\l'
+    return toupper(char)
+  elseif has_key(sticky_table, char)
+    return sticky_table[char]
+  elseif has_key(special_table, char)
+    return special_table[char]
+  else
+    return ''
+  endif
+endfunction "}}}
+
+let s:vimshell_hooks = {}
+function! s:vimshell_hooks.chpwd(args, context) abort
+  if len(split(glob('*'), '\n')) < 100
+    call vimshell#execute('ls')
+  else
+    call vimshell#execute('echo "Many files."')
+  endif
+endfunction
+function! s:vimshell_hooks.emptycmd(cmdline, context) abort
+  call vimshell#set_prompt_command('ls')
+  return 'ls'
+endfunction
+function! s:vimshell_hooks.notfound(cmdline, context) abort
+  return ''
+endfunction
+function! s:vimshell_hooks.preprompt(args, context) abort
+  " call vimshell#execute('echo "preprompt"')
+endfunction
+function! s:vimshell_hooks.preexec(cmdline, context) abort
+  " call vimshell#execute('echo "preexec"')
+
+  let args = vimproc#parser#split_args(a:cmdline)
+  if len(args) > 0 && args[0] ==# 'diff'
+    call vimshell#set_syntax('diff')
+  endif
+
+  return a:cmdline
+endfunction
+function! s:vimshell_hooks.input(input, context) abort
+  " echomsg 'input'
+  return a:input
+endfunction
+
+
+if !exists('g:vimshell_interactive_interpreter_commands')
+    let g:vimshell_interactive_interpreter_commands = {}
+endif
+let g:vimshell_interactive_interpreter_commands.python = 'ipython'
+
+" For themis"{{{
+" if dein#tap('vim-themis')
+  " " Set to $PATH.
+  " let s:bin = dein#get('vim-themis').rtp . '/bin'
+
+  " function! s:split_envpath(path) abort "{{{
+    " let delimiter = has('win32') ? ';' : ':'
+    " if stridx(a:path, '\' . delimiter) < 0
+      " return split(a:path, delimiter)
+    " endif
+
+    " let split = split(a:path, '\\\@<!\%(\\\\\)*\zs' . delimiter)
+    " return map(split,'substitute(v:val, ''\\\([\\'
+          " \ . delimiter . ']\)'', "\\1", "g")')
+  " endfunction"}}}
+
+  " function! s:join_envpath(list, orig_path, add_path) abort "{{{
+    " let delimiter = has('win32') ? ';' : ':'
+    " return (stridx(a:orig_path, '\' . delimiter) < 0
+          " \ && stridx(a:add_path, delimiter) < 0) ?
+          " \   join(a:list, delimiter) :
+          " \   join(map(copy(a:list), 's:escape(v:val)'), delimiter)
+  " endfunction"}}}
+
+  " " Escape a path for runtimepath.
+  " function! s:escape(path) abort "{{{
+    " return substitute(a:path, ',\|\\,\@=', '\\\0', 'g')
+  " endfunction"}}}
+
+  " let $PATH = s:join_envpath(
+        " \ dein#util#_uniq(insert(
+        " \    s:split_envpath($PATH), s:bin)), $PATH, s:bin)
+  " let $THEMIS_HOME = dein#get('vim-themis').rtp
+  " " let $THEMIS_VIM = printf('%s/%s',
+  " "       \ fnamemodify(exepath(v:progpath), ':h'),
+  " "       \ (has('nvim') ? 'nvim' : 'vim'))
+
+  " unlet s:bin
+" endif"}}}
 endif " }}}
 
 if neobundle#tap('ctrlp.vim') " {{{3
@@ -806,8 +1045,7 @@ if has('persistent_undo')
 endif
 
 " hilight EOL space and zenkaku space
-augroup HighlightTrailingSpaces
-  autocmd!
+augroup MyAutoCmd
   autocmd VimEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
   autocmd VimEnter * match TrailingSpaces /\s\+$/
   autocmd VimEnter,ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
@@ -820,10 +1058,7 @@ if exists('&ambiwidth')
 endif
 
 " make directory if parent directory does'nt exist
-augroup AutoMkdir
-  autocmd!
-  autocmd BufNewFile * call PromptAndMakeDirectory()
-augroup END
+autocmd MyAutoCmd BufNewFile * call PromptAndMakeDirectory()
 
 function! PromptAndMakeDirectory()
   let dir = expand("<afile>:p:h")
@@ -882,7 +1117,7 @@ if v:version >= 700
   function! OpenNewTab()
     let s:f = expand("%:p")
       execute ":q"
-      execute ":tabnew ".f
+      execute ":tabnew ".s:f
   endfunction
 endif
 "}}}
@@ -900,51 +1135,20 @@ command! Sw :w !sudo tee >/dev/null %
 " -----------------------------------------------------------------------
 " Filetype {{{1
 
-augroup CommonFileType
-  autocmd!
-  autocmd FileType * setlocal expandtab tabstop=4 shiftwidth=4
-augroup END
-augroup VimFileType
-  autocmd!
-  autocmd FileType vim setlocal expandtab tabstop=2 shiftwidth=2
-augroup END
-augroup RubyFileType
-  autocmd!
-  autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2
-augroup END
-augroup PhpFileType
-  autocmd!
-  autocmd FileType php setlocal expandtab tabstop=4 shiftwidth=4
-augroup END
-augroup JavaScriptFileType
-  autocmd!
-  autocmd FileType javascript setlocal expandtab tabstop=4 shiftwidth=4
-augroup END
-augroup SqlFileType
-  autocmd!
-  autocmd FileType sql setlocal expandtab tabstop=2 shiftwidth=2
-augroup END
-augroup YamlFileType
-  autocmd!
-  autocmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2
-augroup END
-augroup RSpecFileType
-  autocmd!
-  autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=rspec.ruby
-  autocmd FileType rspec.ruby setlocal expandtab tabstop=2 shiftwidth=2
-augroup END
-augroup GoFileType
-  autocmd!
-  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4 list
-augroup END
-augroup ShFileType
-  autocmd!
-  autocmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2
-augroup END
-augroup PongoFileType
-  autocmd!
-  autocmd BufNewFile,BufRead *.pongo set filetype=twig
-augroup END
+autocmd MyAutoCmd FileType * setlocal expandtab tabstop=4 shiftwidth=4
+autocmd MyAutoCmd FileType vim setlocal expandtab tabstop=2 shiftwidth=2
+autocmd MyAutoCmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2
+autocmd MyAutoCmd FileType php setlocal expandtab tabstop=4 shiftwidth=4
+autocmd MyAutoCmd FileType javascript setlocal expandtab tabstop=4 shiftwidth=4
+autocmd MyAutoCmd FileType sql setlocal expandtab tabstop=2 shiftwidth=2
+autocmd MyAutoCmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2
+autocmd MyAutoCmd BufWinEnter,BufNewFile *_spec.rb set filetype=rspec.ruby
+autocmd MyAutoCmd FileType rspec.ruby setlocal expandtab tabstop=2 shiftwidth=2
+autocmd MyAutoCmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4 list
+autocmd MyAutoCmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2
+autocmd MyAutoCmd BufNewFile,BufRead *.pongo set filetype=twig
+autocmd MyAutoCmd FileType xml setlocal expandtab tabstop=2 shiftwidth=2
+autocmd MyAutoCmd FileType xsd setlocal expandtab tabstop=2 shiftwidth=2
 " }}}
 
 

@@ -58,7 +58,7 @@ ZSH_THEME="daine46"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws brew brew-cask docker extract tmux vagrant zsh_reload)
+plugins=(git aws brew brew-cask docker extract tmux vagrant zsh_reload gem)
 
 # User configuration
 
@@ -94,3 +94,5 @@ source $ZSH/oh-my-zsh.sh
 
 source $HOME/dotfiles/zshrc.mine
 [ -f ~/zshrc.local ] && source ~/zshrc.local
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
