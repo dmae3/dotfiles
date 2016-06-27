@@ -134,6 +134,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'mukiwu/vim-twig'
   NeoBundleLazy 'fatih/vim-go'
   NeoBundleLazy 'tpope/vim-rails'
+  NeoBundle 'slim-template/vim-slim'
 
   NeoBundle 'joedicastro/vim-molokai256'
   NeoBundle 'tomasr/molokai'
@@ -718,7 +719,6 @@ if neobundle#tap('vim-go') " {{{3
     \   'filetypes': 'go',
     \ }
     \})
-
 endif " }}}
 
 if neobundle#tap('syntastic') " {{{3
@@ -1146,9 +1146,10 @@ autocmd MyAutoCmd BufWinEnter,BufNewFile *_spec.rb set filetype=rspec.ruby
 autocmd MyAutoCmd FileType rspec.ruby setlocal expandtab tabstop=2 shiftwidth=2
 autocmd MyAutoCmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4 list
 autocmd MyAutoCmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2
-autocmd MyAutoCmd BufNewFile,BufRead *.pongo set filetype=twig
 autocmd MyAutoCmd FileType xml setlocal expandtab tabstop=2 shiftwidth=2
 autocmd MyAutoCmd FileType xsd setlocal expandtab tabstop=2 shiftwidth=2
+
+autocmd MyAutoCmd BufNewFile,BufRead *.pongo set filetype=twig
 " }}}
 
 
