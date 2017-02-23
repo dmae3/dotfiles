@@ -1,0 +1,100 @@
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+depends = 'context_filetype.vim'
+if = "has('nvim')"
+on_i = 1
+hook_source = '''
+let g:deoplete#enable_at_startup = 1
+source ~/.vim/rc/plugins/deoplete.rc.vim
+'''
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = 'python'
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+on_i = 1
+on_ft = 'go'
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+on_cmd = 'Deol'
+on_source = 'denite.nvim'
+hook_add = '''
+  nnoremap <silent> N :<C-u>call deol#new({'command': 'zsh'})<CR>
+  nnoremap <silent> [Space]s :<C-u>Deol zsh<CR>
+  nnoremap <silent> [window]D  :<C-u>call deol#kill_editor()<CR>
+'''
+hook_source = '''
+  let g:deol#prompt_pattern = '% \|%$'
+  set shell=zsh
+
+  " Set to $PATH.
+  let s:bin = dein#get('vim-themis').rtp . '/bin'
+
+  function! s:split_envpath(path) abort "{{{
+    let delimiter = has('win32') ? ';' : ':'
+    if stridx(a:path, '\' . delimiter) < 0
+      return split(a:path, delimiter)
+    endif
+    let split = split(a:path, '\\\@<!\%(\\\\\)*\zs' . delimiter)
+    return map(split,'substitute(v:val, ''\\\([\\'
+      \ . delimiter . ']\)'', "\\1", "g")')
+  endfunction"}}}
+
+  function! s:join_envpath(list, orig_path, add_path) abort "{{{
+    let delimiter = has('win32') ? ';' : ':'
+    return (stridx(a:orig_path, '\' . delimiter) < 0
+      \ && stridx(a:add_path, delimiter) < 0) ?
+      \   join(a:list, delimiter) :
+      \   join(map(copy(a:list),
+      \        "substitute(v:path, ',\\|\\\\,\\@=', '\\\\\\0', 'g')"),
+      \        delimiter)
+  endfunction"}}}
+
+  let $PATH = s:join_envpath(
+    \ dein#util#_uniq(insert(
+    \    s:split_envpath($PATH), s:bin)), $PATH, s:bin)
+  let $THEMIS_HOME = dein#get('vim-themis').rtp
+
+  unlet s:bin
+
+  autocmd FileType deol call s:on_deol()
+  function! s:on_deol() abort
+    nnoremap <buffer><silent> [Space]gc :<C-u>call deol#send('git commit')<CR>
+    nnoremap <buffer><silent> [Space]gs :<C-u>call deol#send('git status')<CR>
+    nnoremap <buffer><silent> [Space]gA :<C-u>call deol#send('git commit --amend')<CR>
+  endfunction
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+on_source = '''
+  if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+  let g:airline_theme = 'molokai'
+  let g:airline_left_sep = '▶'
+  let g:airline_right_sep = '◀'
+  let g:airline_symbols.linenr = '␊'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_detect_iminsert = 1
+
+  let g:airline#extensions#branch#enabled = 1
+  let g:airline#extensions#branch#format = 1
+
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#show_buffers = 0
+  let g:airline#extensions#tabline#tab_nr_type = 1
+
+  let g:airline#extensions#whitespace#enabled = 1
+  let g:airline#extensions#whitespace#mixed_indent_algo = 1
+  let g:airline_symbols.whitespace = 'Ξ'
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+depends = 'vim-airline'
