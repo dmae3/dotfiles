@@ -20,7 +20,7 @@ endif
 let g:marching_enable_neocomplete = 1
 
 let g:neocomplete#sources#omni#input_patterns.python =
-      \ '[^. *\t]\.\w*\|\h\w*'
+  \ '[^. *\t]\.\w*\|\h\w*'
 
 " Define keyword pattern.
 if !exists('g:neocomplete#keyword_patterns')
