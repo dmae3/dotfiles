@@ -166,6 +166,17 @@ hook_source = '''
   let g:neomake_warning_sign = {'text': '>>',  'texthl': 'Todo'}
 
   let g:neomake_javascript_enabled_makers = ['eslint']
+
+  let g:go_fmt_command = 'goimports'
+  let s:goargs = go#package#ImportPath(expand('%:p:h'))
+  let g:neomake_go_errcheck_maker = {
+    \ 'args': ['-abspath', s:goargs],
+    \ 'append_file': 0,
+    \ 'errorformat': '%f:%l:%c:\ %m, %f:%l:%c\ %#%m',
+    \ }
+  let g:neomake_go_enabled_makers = ['golint', 'govet', 'errcheck']
+
+  let g:neomake_ruby_enabled_makers = ['rubocop']
 '''
 hook_add = '''
   autocmd MyAutoCmd BufWritePost * Neomake
