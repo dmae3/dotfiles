@@ -8,6 +8,24 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'kana/vim-operator-user'
 
 [[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+hook_add = 'source ~/.vim/dein/plugins/quickrun.vim'
+
+[[plugins]]
+repo = 'thoughtbot/vim-rspec'
+hook_add = '''
+  let g:rspec_command = "!bin/rspec --cfd {spec}"
+  map <Leader>t :call RunCurrentSpecFile()<CR>
+  map <Leader>s :call RunNearestSpec()<CR>
+  map <Leader>l :call RunLastSpec()<CR>
+  map <Leader>a :call RunAllSpecs()<CR>
+'''
+
+[[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_source = '''
   let indent_guides_enable_on_vim_startup = 1
@@ -32,6 +50,9 @@ hook_add = '''
   nnoremap <Leader>gs :<C-u>Gstatus<Enter>
   nnoremap <Leader>gb :<C-u>Gblame<Enter>
 '''
+
+[[plugins]]
+repo = 'cohama/agit.vim'
 
 [[plugins]]
 repo = 'jimsei/winresizer'
@@ -84,6 +105,9 @@ repo = 'joedicastro/vim-molokai256'
 repo = 'tomasr/molokai'
 
 [[plugins]]
+repo = 'tlhr/anderson.vim'
+
+[[plugins]]
 repo = 'hail2u/vim-css3-syntax'
 
 [[plugins]]
@@ -121,9 +145,6 @@ repo = 'vim-ruby/vim-ruby'
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
-repo = 'mattn/webapi-vim'
-
-[[plugins]]
 repo = 'jelera/vim-javascript-syntax'
 
 [[plugins]]
@@ -131,4 +152,4 @@ repo = 'nsf/gocode'
 rtp = 'vim'
 
 [[plugins]]
-repo = 'vim-jp/vimdoc-ja'
+repo = 'thinca/vim-themis'

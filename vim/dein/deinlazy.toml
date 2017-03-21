@@ -1,14 +1,4 @@
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
-build = 'make'
-on_source = ['vimshell.vim', 'unite.vim']
-
-[[plugins]]
-repo = 'thinca/vim-quickrun'
-depends = 'vimproc.vim'
-on_map = {n = '<Plug>'}
-hook_source = 'source ~/.vim/dein/plugins/quickrun.vim'
-
 repo = 'Shougo/denite.nvim'
 on_cmd = 'Denite'
 hook_source = 'source ~/.vim/dein/plugins/denite.vim'
@@ -34,7 +24,7 @@ hook_add = '''
   nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
     \ -no-empty -mode=normal grep<CR>
   nnoremap <silent> n :<C-u>Denite -buffer-name=search
-    \ -resume -mode=normal -refresh<CR>
+    \ -resume -mode=normal<CR>
   nnoremap <silent> <Leader>ft :<C-u>Denite filetype<CR>
   nnoremap <silent> <C-t> :<C-u>Denite
     \ -select=`tabpagenr()-1` -mode=normal deol<CR>
@@ -198,3 +188,10 @@ repo = 'tweekmonster/impsort.vim'
 on_cmd = 'ImpSort'
 hook_source = 'let g:impsort_highlight_imported = 0'
 
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
+on_i = 1
+depends = ['vimproc.vim']
+hook_source = '''
+  let g:monster#completion#rcodetools#backend = "async_rct_complete"
+'''

@@ -73,3 +73,7 @@ let g:deoplete#skip_chars = ['(', ')']
 " let g:deoplete#enable_profile = 1
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
 " call deoplete#custom#set('clang', 'debug_enabled', 1)
+
+let g:deoplete#sources#omni#input_patterns = {
+  \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+  \}

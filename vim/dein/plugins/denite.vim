@@ -42,4 +42,5 @@ let s:menus.vim.file_candidates = [
 call denite#custom#var('menu', 'menus', s:menus)
 
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-  \ [ '.git/', 'images/', '*.min.*', 'img/', 'fonts/'])
+  \ [ '.git/', 'images/', '*.min.*', 'img/', 'fonts/',
+  \ 'log/', 'tmp/', 'coverage/', 'node_modules/'])
