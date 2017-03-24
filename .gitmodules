@@ -1,3 +1,6 @@
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "vimperator/vimppm"]
+	path = vimperator/vimppm
+	url = https://github.com/cd01/vimppm.git

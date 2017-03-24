@@ -1,408 +1,88 @@
 " vim: ft=vim sw=2 sts=2 fdm=marker
 
+" vimppm
+source ~/.vimperator/vimppm/plugin/vimppm.js
+
+" plugins
+vimppm '_libly.js'
+vimppm '_smooziee.js'
+vimppm 'lookupDictionary.js'
+vimppm 'copy.js'
+
+" copy.js
+javascript <<EOM
+  liberator.globalVariables.copy_templates = [
+    { label: 'title', value: '%TITLE%' },
+    { label: 'tau', value: '%TITLE%\n%URL%' },
+    { label: 'plain', value: '%TITLE% %URL%' },
+    { label: 'anchor', value: '<a href="%URL%">%TITLE%</a>' },
+    { label: 'markdown', value: '[%TITLE%](%URL%)' },
+  ];
+EOM
+
 " let
-
-let mapleader = "\"
-nmap s <Leader>
+let mapleader = ","
 map <C-[> <Esc>
-
-" no beep
-javascript liberator.beep = function() {return false;}
-" set noerrorbells
-
-" setting of hint chars
-set hintchars=hjklasdfgyuiopqwertnmzxcvb
-
-" appendAnchor
-let g:auto_append_anchor = 0
-let g:auto_append_anchor_once = 1
 
 " multi_requester.js
 let g:multi_requester_default_sites = "alc"
 
-" prefix of commanded bookmarkelts
-"let g:command_bookmarklet_prefix = ""
-"let g:command_bookmarklet_use_sandbox = 0
-
-" hints-for-embedded.js
-let g:hints_for_embedded_mode = "e"
-
-" caret-hint.js
-let g:caret_hint_xpath = '//*' "'//img|//h1|//h2|//h3|//p|//div|//span':
-let g:caret_hint_key = ''
-nnoremap <Leader>mh :caret move head<CR>
-nnoremap <Leader>sh :caret select head<CR>
-
-" statstat
-let g:statstat_autorun = "true"
-let g:statstat_interval = "500"
-
-" direct_bookmark
-let g:direct_sbm_use_services_by_tag  = "h"
-let g:direct_sbm_use_services_by_post = "h"
-let g:direct_sbm_is_use_migemo        = 1
-let g:direct_sbm_is_normalize         = 1
-let g:direct_sbm_tag_match            = "infix"
-
-" auto-bookmark
-let g:auto_bookmark_focus_next = 0
-
-" walk-input
-let g:walk_input_map_forward = '<C-,>'
-let g:walk_input_map_backward = '<C-.> <C-S-,>'
-
 " hatenabookmark
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
-nnoremap s :hbt<Space>
-nnoremap S :hbtc<Space>
 
 " _smooziee
-let g:smooziee_scroll_amount="200"
-let g:smooziee_scroll_interval="20"
+let g:smooziee_scroll_amount = "200"
+let g:smooziee_scroll_interval = "20"
 
-" set
-
-set toolbars=nomenu,nonavigation,noaddons,nobookmarks
-set scrollbars
-set notabnumbers
-set status=tabcount,bookmark,position,input,location
-set history=5000
-set newtab=all
-set hlsearch
+" settings
 " set complete=slH
 set focuscontent
-
-
-" Pref (firefox)
-
-" アドオン/プラグイン開発用
-set! javascript.options.strict=true
-set! javascript.options.showInConsole=true
-set! browser.dom.window.dump.enabled=true
-
-" ページのアクセスキーを無効化
-set! ui.key.generalAccessKey=0
-set! ui.key.contentAccessKey=0
-
-" Awesomebarの補完対象にBookmarkletを追加、件数を50件に変更
-" set! browser.urlbar.filter.javascript=false
-" set! browser.urlbar.maxRichResults=50
-
-" liberator.log
-set! extensions.liberator.loglevel=666
-
-" ポップアップを 10000 まで許可する
-" set! dom.popup_maximum=10000
-
-" textarea, input 両方で spell check を有効にする
-set! layout.spellcheckDefault=2
-set! spellchecker.dictionary=en-US
-
-" 単語選択時の右側のスペース選択を行わない
-set! layout.word_select.eat_space_to_next_word=false
-
-" タブバーを自動で隠さない
-set! browser.tabs.autoHide=false
-
-" 閉じるボタンを表示
-set! browser.tabs.closeButtons=3
-
-" IPv6 無効化
-" set! network.dns.disableIPv6=true
-
-" undo limit
-set! browser.sessionstore.max_tabs_undo=100
-
-" 新しいタブをフォアグラウンドで開く
-"set! browser.tabs.loadInBackground=false
-
-" セッションの保存間隔
-" set! browser.sessionstore.interval=120000
-
-" JIT
-" set! javascript.options.jit.chrome=true
-" set! javascript.options.jit.content=true
-
-" 拡張機能のバージョンチェックを回避
-set! extensions.checkCompatibility.4.0=false
-set! extensions.checkCompatibility.4.0b=false
-set! extensions.checkCompatibility.4.1b=false
-set! extensions.checkCompatibility.4.2a=false
-set! extensions.checkCompatibility.4.2b=false
-set! extensions.checkCompatibility.5.0=false
-set! extensions.checkCompatibility.5.1=false
-set! extensions.checkCompatibility.6.0=false
-set! extensions.checkCompatibility.6.1=false
-set! extensions.checkCompatibility.7.0=false
-set! extensions.checkCompatibility.7.1=false
-set! extensions.checkCompatibility.8.0=false
-set! extensions.checkCompatibility.8.1=false
-set! extensions.checkCompatibility.9.0a=false
-set! extensions.checkCompatibility.9.1=false
-
-" キャッシュサイズ
-set! browser.cache.memory.capacity=32768
-
-" ホームページ
-set! browser.startup.homepage="about:blank"
-
-" セッションマネージャ
-set! extensions.sessionmanager.startup=2
-set! extensions.sessionmanager.resume_session="backup.session"
-
-" 以前の値、有効にすると、jquery.com に接続できなくなる。
-" set! intl.accept_languages="en-US,en,ja-JP,ja,chrome://global/locale/intl.properties"
-
-" 0 にすると、バックグラウンドでタブを読み込まない (デフォルトは -1)
-" set! browser.sessionstore.max_concurrent_tabs=3
-
-" 最後のタブを閉じたときに Firefox を終了しない
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+set history=5000
+set ignorecase
+set hlsearch
+set nextpattern=^次(へ|の|ペ)?,^続き,ＮＥＸＴ,(next|more),^(>>*|»)
+set previouspattern=^前(へ|の|ペ)?,^戻る,ＢＡＣＫ,(prev|previous),^(<<*|«)
+set popups=tab
+set status=tabcount,bookmark,position,input,location
+set toolbars=nomenu,nonavigation,noaddons,nobookmarks
+set scrollbars
+set newtab=all
 set! browser.tabs.closeWindowWithLastTab=false
-
-" 起動時に前回のセッションを復元
 set! browser.startup.page=3
+javascript liberator.beep = function() {return false;}
 
-" XXX HTTP/1.1 パイプリング
-set! network.http.pipelining=true
-
-" XXX GIF アニメ (once / normal / none)
-set! image.animation_mode="normal"
-
-
-" Pref (addons)
-
-set! extensions.scriptish.useDefaultLocale=true
-
-
-" Mappings (Override)
-
-" for US KBD
-"nnoremap : ;
-"nnoremap ; :
-"vnoremap : ;
-"vnoremap ; :
-
-" j/k でのスクロール幅を 1行 から 5行 に変更
-"nnoremap j 5<C-e>
-"nnoremap k 5<C-y>
-
-" 戻る/進む
+" keymappings
 nnoremap <BS> <A-Left>
-
-" タブ
 nnoremap gh 1gt
-
-" Pageinfo
 nnoremap <C-g> g<C-g>
-
-" URL デコードしないようにする
 nnoremap <silent> y :<C-u>js util.copyToClipboard(buffer.URL)<CR>
-
-" 新しいウィンドウで開かないように
 nnoremap <S-CR> <C-CR>
-
-" for LDRize
-nnoremap p P
-nnoremap gop p
-nnoremap gnp P
-
-" for MyBookmarsk
-nnoremap gob :<C-u>open about:mybookmarks<CR>
-nnoremap gnb :<C-u>tabopen about:mybookmarks<CR>
-
-" 拡大縮小後に位置を戻す
-"nnoremap zi mzzi`z
-"nnoremap zo mzzo`z
-"nnoremap zz mzzz`z
-
-" direct_bookmark
-nnoremap a :sbm<Space>
-
-" 閉じちゃだめ
-cnoremap <C-q> <Nop>
-
-" 怖い
 nnoremap q <Nop>
-
-
-" Mappings (Site Local)
-
-"nnoremap -urls='^http://www\.tumblr\.com/(dashboard|tumblelog|show)' <Silent> f :xh t //*[@class="quote_source"]//a[not(@class="tumblr_blog")]|//*[@class="caption"]//a[not(@class="tumblr_blog")]<CR>
-
-" 画像のばやい - 拡縮
-nnoremap -urls '\.(jpg|png|gif)$' zi zI
-nnoremap -urls '\.(jpg|png|gif)$' zo zO
-
-" win-mouse
-nnoremap -urls=www\\.slideshare\\.net l :slideshare next<CR>
-nnoremap -urls=www\\.slideshare\\.net h :slideshare prev<CR>
-
-" refe
-nnoremap -urls '^http://doc\.okkez\.net/' o :refe<Space>
-nnoremap -urls '^http://doc\.okkez\.net/' t :trefe<Space>
-
-" Google Search
-" nnoremap -urls '^https://www\.google\.co\.jp/search\?' f :gr<Space>
-
-" PDF.js.js
-nnoremap -urls \.pdf$ i :<C-u>pdfjs index<Space>
-
-
-" Mappings (Leader)
-
-" lo.js
-nnoremap <Leader>o :<C-u>lo<Space>
-nnoremap <Leader>O :<C-u>lo<Space>-w=t<Space>
-
-" 各コマンド呼び出し
-nnoremap <Leader>h :<C-u>hsearch<Space>
-nnoremap <Leader>H :<C-u>hcopy<Space>
-nnoremap <Leader>s :<C-u>viewSBMComments -type htdl -format=id,comment<CR>
-nnoremap <Leader>G :<C-u>mstrans<Space>
-nnoremap <Leader>A :<C-u>applaunch<Space>
-nnoremap <Leader>p :<C-u>pino<Space>
-
-" AutoBookmark
-nnoremap <Leader>aa :<C-u>autobookmark<Space>
-nnoremap <Leader>ac :<C-u>autobookmark continue<Space>
-nnoremap <Leader>as :<C-u>autobookmark start<Space>
-nnoremap <Leader>ar :<C-u>autobookmark remove<Space>
-
-" vim の設定ぽく
 nnoremap <Leader>b :<C-u>buffer<Space>
-
-
-" Mappings
-
-" インサートモード時の前後移動
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
-
-" コマンドモードでの履歴たぐり
+cnoremap <C-q> <Nop>
 cnoremap <C-p> <S-Tab>
 cnoremap <C-n> <Tab>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-k> <Up>
 cnoremap <C-l> <Down>
-
-" echo and echopy
-noremap e :<C-u>echo<Space>
-noremap E :<C-u>echo!<Space>
-
-" multi requster
-nnoremap w :<C-u>mr<Space>
-nnoremap W :<C-u>mr!<Space>
-
-" <C-k> で検索ページにいくのがウザイので無効化
-" nnoremap <C-k> <Nop>
-
-" INSERT モードでよくまつがえて押すので…
 inoremap <C-r> <C-i>
-
-" Undo
 nnoremap U :<C-u>undo<Space>
+noremap e :eijiro<Space>
 
-" コピーする
-"vnoremap y :<C-u>copy %SEL%<CR>
+" colorscheme
+" colorscheme sweets
+colorscheme dita
 
-" タブの移動
-nnoremap <A-C-j> :<C-u>tabmove! +1<CR>
-nnoremap <A-C-k> :<C-u>tabmove! -1<CR>
-
-" <C-i> の挙動が残念なのを修正
-cnoremap <C-i> <Tab>
-cnoremap <S-C-i> <S-Tab>
-
-" for kill-menu-mode.js (XXX see fmaps at .vimperatorrc.after)
-" inoremap <C-n> <Down>
-" inoremap <C-p> <Up>
-
-" ダウンロードマネージャ抑止
-cnoremap <C-j> <CR>
-inoremap <C-j> <CR>
-nnoremap <C-j> <CR>
-
-" zoom em all
-nnoremap ZI :<C-u>zoomall<Space>+10<CR>
-nnoremap ZO :<C-u>zoomall<Space>-10<CR>
-nnoremap ZZ :<C-u>zoomall<CR>
-
-" 直前のタブを削除
-nnoremap <Leader>dd :<C-u>js<Space>tabs.remove(tabs.alternate)<CR>
-
-" マウスカーソルを邪魔じゃないとこに飛ばす
-nnoremap <A-z> :mouse move 1800 10000<CR>
-
-" tab-history.js
-nnoremap < :tabhistory back<CR>
-nnoremap > :tabhistory forward<CR>
-
-" google search
-nnoremap o :<C-u>open google<Space>
-nnoremap t :<C-u>tabopen google<Space>
-nnoremap ,o :<C-u>open<Space>
-nnoremap ,t :<C-u>tabopen<Space>
-
-" Evernote Cleary
-noremap e :js __readable_by_evernote.readable_by_evernote__menu__call(buffer.URL)
-noremap E :js __readable_by_evernote.__readable_by_evernote__launch(true);
-
-
-" カラースキーム
-
-" colorscheme green
-" colorscheme dai-jpn
-" colorscheme BrewBlue
-colorscheme sweets
-" colorscheme tab-numbers
-
-
-" QuickMarks
+" qmarks
 silent qmark g https://mail.google.com/
 silent qmark c https://www.google.com/calendar/
-silent qmark b http://b.hatena.ne.jp/dai_jpn/bookmark
 
+" turn off ime on commandline
+:style -name commandline-ime chrome://* #liberator-commandline-command input { ime-mode: inactive; }
 
-" 選択範囲内のリンクを開く
-command! sopen js [liberator.open(a.href, liberator.NEW_BACKGROUND_TAB) for (a in util.evaluateXPath("//a")) if (content.window.getSelection().containsNode(a, true))]
-command! sum echo let (sum=0) (util.readFromClipboard().match(/\d+/g).map(function(s) parseInt(s)).forEach(function(v) sum+=v),sum)
-" command! googlesidewiki js document.getElementById('gtbSidewiki').click()
-command! webcon :emenu Tools.Web Console
-" Fox To Phone
-command! pushandroid js sendtophone.onToolbarButtonCommand()
-command! gpum statusbarpanel gpum-statusbar-panel
-
-
-" Abbr
-
-abbr jager          JagerMonkey
-abbr #v             #vimperator
-abbr pen            pentadactyl
-abbr #pen           #pentadactyl
-cabbr .fm           http://turntable.fm/metallum #turntablefm
-
-cabbr cr            ~/../../project/coderepos/vimp-plugin/
-cabbr vr            ~/vimperator/default/
-
-abbr -j .title      '"' + buffer.title.replace(/ - Death to.*グループ$/, '') + '"'
-abbr -j .url        plugins.bitly.jmp(buffer.URL)
-abbr -j .tu         abbreviations.get(modes.INSERT, '.title').text + ' - ' + plugins.bitly.jmp(buffer.URL)
-abbr -j .impala     plugins.haneru.getc(buffer.URL)[0]
-
-abbr -j .song       let (song = plugins.mpdCurrentsong.API.getSongInfo()) <>{song.Title} / {song.Artist} #NowPlaying</>
-
-iabbr -j .cmdline   commandline.command
-
-cabbr -j .reply        let (d=doc.querySelector('[data-item-id][data-tweet-id]')) <>@{d.getAttribute('data-screen-name')}#{d.getAttribute('data-item-id')}</>
-cabbr -j .rt        let (d=doc.querySelector('[data-item-id][data-tweet-id]')) <>RT @{d.getAttribute('data-screen-name')}#{d.getAttribute('data-item-id')}</>
-
-
-cabbr -j .amazon    let(asin=content.document.getElementById('ASIN').value,base='http://amazon.jp/',res)['dp/','o/ASIN/','gp/product/'].some(function(it)((content.document.location.pathname.indexOf(it)>1)&&(res=base+it+asin)))&&res;
-
-cabbr -j .date      (new Date).toLocaleFormat("%Y-%m-%d")
-cabbr -j .time      (new Date).toLocaleFormat("%H:%M:%S")
-
-" Style
-
-style -name commandline-ime chrome://* #liberator-commandline-command input { ime-mode: inactive; }
+" Enable autocomplete search for history
+js services.services.autoCompleteSearch.class_="@mozilla.org/autocomplete/search;1?name=unifiedcomplete"
