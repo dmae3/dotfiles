@@ -16,7 +16,7 @@ hook_add = '''
     \ line<CR>
   nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search
     \ -mode=normal line<CR>
-  nnoremap <silent> <Leader>s :<C-u>Denite file_point file_old
+  nnoremap <silent> <Leader>s :<C-u>Denite file_point
     \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 
   nnoremap <silent> <Leader>dn :<C-u>Denite dein<CR>
