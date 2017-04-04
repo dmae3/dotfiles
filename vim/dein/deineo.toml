@@ -18,6 +18,11 @@ on_i = 1
 on_ft = 'go'
 
 [[plugins]]
+repo = 'fishbullet/deoplete-ruby'
+on_i = 1
+on_ft = 'ruby'
+
+[[plugins]]
 repo = 'Shougo/deol.nvim'
 on_cmd = 'Deol'
 on_source = 'denite.nvim'
