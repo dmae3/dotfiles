@@ -259,7 +259,7 @@ set wildoptions=tagfile
 " completion
 set completeopt=menuone
 if has('patch-7.4.775')
-  set completeopt+=noinsert
+  " set completeopt+=noinsert
   " Don't complete from other buffer.
   set complete=.
   " Set popup menu max height.
