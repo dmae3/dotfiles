@@ -12,18 +12,14 @@ hook_add = '''
 
   nnoremap <silent> <Leader>d<Space>
     \ :<C-u>Denite file_rec:~/.vim<CR>
-  nnoremap <silent> / :<C-u>Denite -buffer-name=search
-    \ line<CR>
-  nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search
-    \ -mode=normal line<CR>
   nnoremap <silent> <Leader>s :<C-u>Denite file_point
     \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 
   nnoremap <silent> <Leader>dn :<C-u>Denite dein<CR>
   nnoremap <silent> <Leader>dg :<C-u>Denite ghq<CR>
-  nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
+  nnoremap <silent> ;g :<C-u>Denite -buffer-name=grep
     \ -no-empty -mode=normal grep<CR>
-  nnoremap <silent> n :<C-u>Denite -buffer-name=search
+  nnoremap <silent> ;n :<C-u>Denite -buffer-name=grep
     \ -resume -mode=normal<CR>
   nnoremap <silent> <Leader>ft :<C-u>Denite filetype<CR>
   nnoremap <silent> <C-t> :<C-u>Denite
