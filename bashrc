@@ -14,7 +14,7 @@ fi
 ###############################################################################
 # PATH
 #export PYTHONPATH=~/local/lib/python2.7/site-packages
-export PATH=$HOME/local/bin:$PATH
+export PATH=$HOME/local/bin:/usr/local/bin:$PATH
 
 # IGNORE
 export FIGNORE=".svn:.git"
