@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dotfiles=( vim vimrc zshrc tmux.conf vimshrc bashrc gitconfig agignore vimperatorrc vimperator)
+dotfiles=( vim vimrc zshenv zshrc tmux.conf vimshrc bashrc gitconfig agignore vimperatorrc vimperator)
 for file in ${dotfiles[@]}
 do
   if [ -a $HOME/.$file ]; then
@@ -13,3 +13,5 @@ done
 
 cd $HOME/dotfiles
 git submodule update --init
+
+curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
