@@ -45,6 +45,11 @@ on_source = 'denite.nvim'
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = 'context_filetype.vim'
+on_if = 1
+
+[[plugins]]
 repo = 'Shougo/vimshell.vim'
 on_map = {n = '<Plug>'}
 on_if = "!has('nvim')"
@@ -66,7 +71,7 @@ repo = 'Shougo/vimfiler.vim'
 depends = 'unite.vim'
 on_map = {n = '<Plug>'}
 on_if = "isdirectory(bufname('%'))"
-hook_add = 'nnoremap <silent> <Leader>f :<C-u>VimFiler -invisible<CR>'
+hook_add = 'nnoremap <silent> <Leader>ff :<C-u>VimFiler -invisible<CR>'
 hook_source = '''
   call vimfiler#custom#profile('default', 'context', {
     \ 'safe' : 0,
