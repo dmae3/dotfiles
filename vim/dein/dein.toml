@@ -16,16 +16,6 @@ repo = 'thinca/vim-quickrun'
 hook_add = 'source ~/.vim/dein/plugins/quickrun.vim'
 
 [[plugins]]
-repo = 'thoughtbot/vim-rspec'
-hook_add = '''
-  let g:rspec_command = "!bin/rspec --cfd {spec}"
-  map <Leader>t :call RunCurrentSpecFile()<CR>
-  map <Leader>s :call RunNearestSpec()<CR>
-  map <Leader>l :call RunLastSpec()<CR>
-  map <Leader>a :call RunAllSpecs()<CR>
-'''
-
-[[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_source = '''
   let indent_guides_enable_on_vim_startup = 1
@@ -43,6 +33,9 @@ hook_add = '''
     autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=236
   augroup END
 '''
+
+[[plugins]]
+repo = 'ntpeters/vim-better-whitespace'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
