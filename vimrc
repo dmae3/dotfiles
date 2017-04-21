@@ -277,12 +277,6 @@ if &term =~ "xterm-256color" || &term =~ "screen-256color"
   set t_Sb=[4%dm
 endif
 
-" hilight EOL space
-augroup MyAutoCmd
-  autocmd VimEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
-  autocmd WinEnter * match TrailingSpaces /\s\+$/
-augroup END
-
 " colorscheme
 let g:rehash256 = 1
 colorscheme molokai
