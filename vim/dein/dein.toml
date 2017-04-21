@@ -144,3 +144,6 @@ rtp = 'vim'
 
 [[plugins]]
 repo = 'thinca/vim-themis'
+
+[[plugins]]
+repo = 'tpope/vim-obsession'
