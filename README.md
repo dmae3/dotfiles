@@ -1,5 +1,5 @@
 ## Usage
 
 ```
-$ curl -fsS https://raw.githubusercontent.com/daine46/dotfiles/master/bin/install.sh | sh
+$ curl -fsS https://raw.githubusercontent.com/dmae3/dotfiles/master/bin/install.sh | sh
 ```
