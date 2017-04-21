@@ -175,5 +175,8 @@ export FZF_DEFAULT_OPTS="--extended --ansi --multi"
 bindkey '^@' anyframe-widget-cd-ghq-repository
 bindkey '^r' anyframe-widget-put-history
 
+## tmuxinator
+[ -f ~/.bin/tmuxinator.zsh ] && source ~/.bin/tmuxinator.zsh
+
 # local environment
 [ -f ~/zshrc.local ] && source ~/zshrc.local
