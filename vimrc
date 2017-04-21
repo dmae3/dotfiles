@@ -284,6 +284,7 @@ augroup MyAutoCmd
 augroup END
 
 " colorscheme
+let g:rehash256 = 1
 colorscheme molokai
 " }}}
 
