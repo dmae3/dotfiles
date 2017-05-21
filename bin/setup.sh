@@ -14,4 +14,9 @@ done
 cd $HOME/dotfiles
 git submodule update --init
 
-curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
+# install zplug
+curl -sL https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+
+# setting for neovim
+[[ -d $HOME/.config/nvim ]] && mkdir -p $HOME/.config/nvim
+ln -s $HOME/dotfiles/vimrc $HOME/.config/nvim/init.vim
