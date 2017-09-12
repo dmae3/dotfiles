@@ -2,19 +2,25 @@
 if executable('rg')
   call denite#custom#var('file_rec', 'command',
     \ ['rg', '--files', '--glob', '!.git'])
-  call denite#custom#var('grep', 'command', ['rg'])
+  call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
   call denite#custom#var('grep', 'recursive_opts', [])
   call denite#custom#var('grep', 'final_opts', [])
   call denite#custom#var('grep', 'separator', ['--'])
   call denite#custom#var('grep', 'default_opts',
     \ ['--vimgrep', '--no-heading'])
-elseif executable('pt')
-  call denite#custom#var('file_rec', 'command',
-    \ ['pt', '--nogroup', '--nocolor'])
 else
   call denite#custom#var('file_rec', 'command',
     \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 endif
+
+call denite#custom#source('file_old', 'matchers',
+  \ ['matcher_fuzzy', 'matcher_project_files'])
+" if has('nvim')
+"   call denite#custom#source('file_rec,grep', 'matchers',
+"     \ ['matcher_cpsm'])
+" endif
+call denite#custom#source('file_old', 'converters',
+  \ ['converter_relative_word'])
 
 call denite#custom#map('insert', '<C-j>',
   \ '<denite:move_to_next_line>', 'noremap')
@@ -27,10 +33,11 @@ call denite#custom#map('normal', 'r',
 
 call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 call denite#custom#var('file_rec/git', 'command',
-  \ ['git', 'ls-files', '-co', '--exclude-standard'])
+      \ ['git', 'ls-files', '-co', '--exclude-standard'])
 
-call denite#custom#option('default', 'prompt', '>')
-call denite#custom#option('default', 'short_source_names', v:true)
+call denite#custom#option('default', {
+  \ 'prompt': '>', 'short_source_names': v:true
+  \ })
 
 let s:menus = {}
 let s:menus.vim = {
