@@ -77,6 +77,10 @@ hook_add = '''
   let g:airline#extensions#whitespace#enabled = 1
   let g:airline#extensions#whitespace#mixed_indent_algo = 1
   let g:airline_symbols.whitespace = 'Ξ'
+
+  let g:airline#extensions#ale#enabled = 1
+  let airline#extensions#ale#error_symbol = 'E:'
+  let airline#extensions#ale#warning_symbol = 'W:'
 '''
 
 [[plugins]]
@@ -128,9 +132,6 @@ repo = 'kana/vim-operator-user'
 
 [[plugins]]
 repo = 'rcmdnk/vim-markdown'
-
-[[plugins]]
-repo = 'vim-ruby/vim-ruby'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'

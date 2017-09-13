@@ -36,6 +36,57 @@ repo = 'Jagua/vim-denite-ghq'
 on_source = 'denite.nvim'
 
 [[plugins]]
+repo = 'Shougo/deol.nvim'
+on_cmd = 'Deol'
+on_source = 'denite.nvim'
+hook_add = '''
+  nnoremap <silent> <Leader>N :<C-u>call deol#new({'command': 'zsh'})<CR>
+  nnoremap <silent> [Space]s :<C-u>Deol zsh<CR>
+  nnoremap <silent> [window]D  :<C-u>call deol#kill_editor()<CR>
+'''
+hook_source = '''
+  let g:deol#prompt_pattern = '% \|%$'
+  set shell=zsh
+
+  " Set to $PATH.
+  let s:bin = dein#get('vim-themis').rtp . '/bin'
+
+  function! s:split_envpath(path) abort "{{{
+    let delimiter = has('win32') ? ';' : ':'
+    if stridx(a:path, '\' . delimiter) < 0
+      return split(a:path, delimiter)
+    endif
+    let split = split(a:path, '\\\@<!\%(\\\\\)*\zs' . delimiter)
+    return map(split,'substitute(v:val, ''\\\([\\'
+      \ . delimiter . ']\)'', "\\1", "g")')
+  endfunction"}}}
+
+  function! s:join_envpath(list, orig_path, add_path) abort "{{{
+    let delimiter = has('win32') ? ';' : ':'
+    return (stridx(a:orig_path, '\' . delimiter) < 0
+      \ && stridx(a:add_path, delimiter) < 0) ?
+      \   join(a:list, delimiter) :
+      \   join(map(copy(a:list),
+      \        "substitute(v:path, ',\\|\\\\,\\@=', '\\\\\\0', 'g')"),
+      \        delimiter)
+  endfunction"}}}
+
+  let $PATH = s:join_envpath(
+    \ dein#util#_uniq(insert(
+    \    s:split_envpath($PATH), s:bin)), $PATH, s:bin)
+  let $THEMIS_HOME = dein#get('vim-themis').rtp
+
+  unlet s:bin
+
+  autocmd FileType deol call s:on_deol()
+  function! s:on_deol() abort
+    nnoremap <buffer><silent> [Space]gc :<C-u>call deol#send('git commit')<CR>
+    nnoremap <buffer><silent> [Space]gs :<C-u>call deol#send('git status')<CR>
+    nnoremap <buffer><silent> [Space]gA :<C-u>call deol#send('git commit --amend')<CR>
+  endfunction
+'''
+
+[[plugins]]
 repo = 'Shougo/neoyank.vim'
 on_if = 1
 on_event = 'TextYankPost'
@@ -65,6 +116,10 @@ hook_source = '''
   let g:neocomplete#enable_at_startup = 1
   source ~/.vim/dein/plugins/neocomplete.vim
 '''
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+on_if = 1
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
@@ -150,27 +205,10 @@ repo = 'cohama/lexima.vim'
 on_i = 1
 
 [[plugins]]
-repo = 'neomake/neomake'
-on_event = 'BufWrite'
+repo = 'w0rp/ale'
+on_if = 1
 hook_source = '''
-  let g:neomake_error_sign = {'text': '>>', 'texthl': 'Error'}
-  let g:neomake_warning_sign = {'text': '>>',  'texthl': 'Todo'}
-
-  let g:neomake_javascript_enabled_makers = ['eslint']
-
-  let g:go_fmt_command = 'goimports'
-  let s:goargs = go#package#ImportPath(expand('%:p:h'))
-  let g:neomake_go_errcheck_maker = {
-    \ 'args': ['-abspath', s:goargs],
-    \ 'append_file': 0,
-    \ 'errorformat': '%f:%l:%c:\ %m, %f:%l:%c\ %#%m',
-    \ }
-  let g:neomake_go_enabled_makers = ['golint', 'govet', 'errcheck']
-
-  let g:neomake_ruby_enabled_makers = ['rubocop']
-'''
-hook_add = '''
-  autocmd MyAutoCmd BufWritePost * Neomake
+  let g:ale_statusline_format = ['E%d', 'W%d', '']
 '''
 
 [[plugins]]
