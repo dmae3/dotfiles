@@ -59,7 +59,8 @@ let g:deoplete#keyword_patterns.tex = '[^\w|\s][a-zA-Z_]\w*'
 
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
-let g:deoplete#omni#functions = {}
+let g:deoplete#omni#input_patterns.ruby = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+let g:deoplete#omni#functions.ruby = 'rubycomplete#Complete'
 
 " inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
 
@@ -73,7 +74,3 @@ let g:deoplete#skip_chars = ['(', ')']
 " let g:deoplete#enable_profile = 1
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
 " call deoplete#custom#set('clang', 'debug_enabled', 1)
-
-let g:deoplete#sources#omni#input_patterns = {
-  \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-  \}

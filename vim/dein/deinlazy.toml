@@ -36,6 +36,10 @@ repo = 'Jagua/vim-denite-ghq'
 on_source = 'denite.nvim'
 
 [[plugins]]
+repo = 'Shougo/deoplete-rct'
+on_if = 1
+
+[[plugins]]
 repo = 'Shougo/deol.nvim'
 on_cmd = 'Deol'
 on_source = 'denite.nvim'
@@ -226,11 +230,3 @@ hook_source = '''
 repo = 'tweekmonster/impsort.vim'
 on_cmd = 'ImpSort'
 hook_source = 'let g:impsort_highlight_imported = 0'
-
-[[plugins]]
-repo = 'osyo-manga/vim-monster'
-on_i = 1
-depends = ['vimproc.vim']
-hook_source = '''
-  let g:monster#completion#rcodetools#backend = "async_rct_complete"
-'''
