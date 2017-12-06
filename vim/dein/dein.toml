@@ -148,3 +148,6 @@ repo = 'thinca/vim-themis'
 
 [[plugins]]
 repo = 'tpope/vim-obsession'
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
