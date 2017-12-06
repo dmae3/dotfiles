@@ -1,6 +1,6 @@
 [user]
-    name = Maeda Daisuke
-    email = MaedaDaisuke@next-group.jp
+    name = dmae3
+    email = daisuke0146@gmail.com
 [color]
     status = auto
     diff = auto
@@ -59,3 +59,12 @@
     # grep
     gr = grep
     gn = grep -n
+[credential]
+    helper = osxkeychain
+[url "https://github.com"]
+    insteadOf = git://github.com
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
