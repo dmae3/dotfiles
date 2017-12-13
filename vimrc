@@ -18,20 +18,21 @@ set encoding=utf-8
 scriptencoding utf-8
 let g:mapleader=','
 
+function! s:on_filetype() abort "{{{
+  if execute('filetype') =~# 'OFF'
+    " Lazy loading
+    silent! filetype plugin indent on
+    syntax enable
+    filetype detect
+  endif
+endfunction "}}}
+
 augroup MyAutoCmd
   autocmd!
-  autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *
+  autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
     \ call s:on_filetype()
   autocmd CursorHold *.toml syntax sync minlines=300
 augroup END
-
-if has('vim_starting') && has('reltime')
-  let g:startuptime = reltime()
-  augroup MyAutoCmd
-    autocmd VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
-      \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
-  augroup END
-endif
 
 let $DOTVIM=expand('~/.vim')
 let $CACHE = expand('~/.cache')
@@ -58,24 +59,6 @@ let g:loaded_tutor_mode_plugin = 1
 let g:loaded_vimballPlugin     = 1
 let g:loaded_zipPlugin         = 1
 " }}}
-
-
-" -----------------------------------------------------------------------
-" Functions {{{1
-
-function! s:on_filetype() abort "{{{
-  if execute('filetype') =~# 'OFF'
-    " Lazy loading
-    silent! filetype plugin indent on
-    syntax enable
-    filetype detect
-  endif
-endfunction "}}}
-" }}}
-
-
-" -----------------------------------------------------------------------
-" Plugins {{{1
 
 " Load dein.
 let s:dein_dir = expand('$CACHE/dein')
@@ -112,6 +95,18 @@ endif
 if dein#check_install()
   " Installation check.
   call dein#install()
+endif
+
+if has('vim_starting') && !empty(argv())
+  call s:on_filetype()
+endif
+
+if !has('vim_starting')
+  call dein#call_hook('source')
+  call dein#call_hook('post_source')
+
+  syntax enable
+  filetype plugin indent on
 endif
 " }}}
 
@@ -376,4 +371,10 @@ cnoremap <C-y> <C-r>*
 command! Ev edit $MYVIMRC
 command! Sv source $MYVIMRC
 command! Sw :w !sudo tee >/dev/null %
+"}}}
+
+
+" -----------------------------------------------------------------------
+" Finishing {{{1
+
 "}}}
