@@ -46,6 +46,9 @@ hook_add = '''
 
 [[plugins]]
 repo = 'cohama/agit.vim'
+hook_add = '''
+  nnoremap <Leader>gv :<C-u>AgitFile<Enter>
+'''
 
 [[plugins]]
 repo = 'jimsei/winresizer'
@@ -61,10 +64,6 @@ hook_add = '''
     let g:airline_symbols = {}
   endif
   let g:airline_theme = 'molokai'
-  let g:airline_symbols.linenr = '␊'
-  let g:airline_symbols.linenr = '¶'
-  let g:airline_symbols.branch = '⎇'
-  let g:airline_symbols.paste = 'ρ'
   let g:airline_detect_iminsert = 1
 
   let g:airline#extensions#branch#enabled = 1
@@ -88,12 +87,6 @@ repo = 'vim-airline/vim-airline-themes'
 depends = 'vim-airline'
 
 [[plugins]]
-repo = 'slim-template/vim-slim'
-
-[[plugins]]
-repo = 'mukiwu/vim-twig'
-
-[[plugins]]
 repo = 'joedicastro/vim-molokai256'
 
 [[plugins]]
@@ -103,41 +96,19 @@ repo = 'tomasr/molokai'
 repo = 'tlhr/anderson.vim'
 
 [[plugins]]
-repo = 'hail2u/vim-css3-syntax'
-
-[[plugins]]
-repo = 'mxw/vim-jsx'
-
-[[plugins]]
-repo = 'shawncplus/phpcomplete.vim'
-
-[[plugins]]
-repo = 'jiangmiao/simple-javascript-indenter'
-
-[[plugins]]
-repo = 'cespare/vim-toml'
-
-[[plugins]]
-repo = 'elzr/vim-json'
-
-[[plugins]]
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
 
-# Operators
 [[plugins]]
 repo = 'kana/vim-operator-user'
-
-[[plugins]]
-repo = 'rcmdnk/vim-markdown'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
-repo = 'jelera/vim-javascript-syntax'
+repo = 'mxw/vim-jsx'
 
 [[plugins]]
 repo = 'nsf/gocode'
@@ -148,6 +119,3 @@ repo = 'thinca/vim-themis'
 
 [[plugins]]
 repo = 'tpope/vim-obsession'
-
-[[plugins]]
-repo = 'kchmck/vim-coffee-script'

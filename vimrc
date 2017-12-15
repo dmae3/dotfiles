@@ -29,8 +29,7 @@ endfunction "}}}
 
 augroup MyAutoCmd
   autocmd!
-  autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
-    \ call s:on_filetype()
+  autocmd FileType,Syntax,BufNewFile,BufNew,BufRead * call s:on_filetype()
   autocmd CursorHold *.toml syntax sync minlines=300
 augroup END
 
@@ -80,13 +79,6 @@ if dein#load_state(s:dein_dir)
 
   call dein#load_toml('~/.vim/dein/dein.toml', {'lazy': 0})
   call dein#load_toml('~/.vim/dein/deinlazy.toml', {'lazy' : 1})
-  if has('nvim')
-    call dein#load_toml('~/.vim/dein/deineo.toml', {})
-  endif
-
-  if dein#tap('deoplete.nvim') && has('nvim')
-    call dein#disable('neocomplete.vim')
-  endif
 
   call dein#end()
   call dein#save_state()
@@ -102,9 +94,6 @@ if has('vim_starting') && !empty(argv())
 endif
 
 if !has('vim_starting')
-  call dein#call_hook('source')
-  call dein#call_hook('post_source')
-
   syntax enable
   filetype plugin indent on
 endif
@@ -371,10 +360,4 @@ cnoremap <C-y> <C-r>*
 command! Ev edit $MYVIMRC
 command! Sv source $MYVIMRC
 command! Sw :w !sudo tee >/dev/null %
-"}}}
-
-
-" -----------------------------------------------------------------------
-" Finishing {{{1
-
 "}}}
