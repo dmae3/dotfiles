@@ -134,8 +134,9 @@ bindkey -e
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
-alias du="du -h"
-alias df="df -h"
+alias du='du -h'
+alias df='df -h'
+alias fig='docker-compose'
 
 ## ls
 case $(uname) in
