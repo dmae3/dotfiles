@@ -20,3 +20,14 @@ curl -sL https://raw.githubusercontent.com/zplug/installer/master/installer.zsh 
 # setting for neovim
 [[ -d $HOME/.config/nvim ]] && mkdir -p $HOME/.config/nvim
 ln -s $HOME/dotfiles/vimrc $HOME/.config/nvim/init.vim
+
+# install anyenv
+git clone https://github.com/riywo/anyenv ~/.anyenv
+
+# refresh SHELL
+exec $SHELL -l
+
+# install anyenv plugins
+mkdir -p $(anyenv root)/plugins
+git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update
+git clone https://github.com/znz/anyenv-git.git $(anyenv root)/plugins/anyenv-git
