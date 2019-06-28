@@ -117,7 +117,7 @@ set smarttab
 set expandtab
 " set tabstop=4
 " set softtabstop=4
-set shiftwidth=4
+set shiftwidth=2
 
 " indent
 set autoindent
@@ -201,6 +201,9 @@ set t_ut=
 set ttyfast
 set colorcolumn=79
 let g:did_install_default_menus = 1
+set termguicolors
+set updatetime=300
+set signcolumn=yes
 
 " break
 set linebreak

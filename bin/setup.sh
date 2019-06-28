@@ -20,6 +20,9 @@ curl -sL https://raw.githubusercontent.com/zplug/installer/master/installer.zsh 
 # setting for neovim
 [[ -d $HOME/.config/nvim ]] && mkdir -p $HOME/.config/nvim
 ln -s $HOME/dotfiles/vimrc $HOME/.config/nvim/init.vim
+ln -s $HOME/dotfiles/vim/dein/coc/coc-settings.json $HOME/.config/nvim/coc-settings.vim
+mkdir -p $HOME/.config/coc/extensions
+ln -s $HOME/dotfiles/vim/dein/coc/package.json $HOME/.config/coc/extensions/package.vim
 
 # install anyenv
 git clone https://github.com/riywo/anyenv ~/.anyenv

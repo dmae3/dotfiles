@@ -1,0 +1,11 @@
+{
+  "languageserver": {
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    }
+  },
+  "solargraph.diagnostics": true,
+  "solargraph.useBundler": false,
+}

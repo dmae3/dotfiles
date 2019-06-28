@@ -76,10 +76,6 @@ hook_add = '''
   let g:airline#extensions#whitespace#enabled = 1
   let g:airline#extensions#whitespace#mixed_indent_algo = 1
   let g:airline_symbols.whitespace = 'Ξ'
-
-  let g:airline#extensions#ale#enabled = 1
-  let airline#extensions#ale#error_symbol = 'E:'
-  let airline#extensions#ale#warning_symbol = 'W:'
 '''
 
 [[plugins]]
@@ -108,14 +104,13 @@ repo = 'kana/vim-operator-user'
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
-repo = 'mxw/vim-jsx'
-
-[[plugins]]
-repo = 'nsf/gocode'
-rtp = 'vim'
-
-[[plugins]]
 repo = 'thinca/vim-themis'
 
 [[plugins]]
 repo = 'tpope/vim-obsession'
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+merge = 0
+rev = 'release'
+hook_add = 'source ~/.vim/dein/plugins/coc.vim'
