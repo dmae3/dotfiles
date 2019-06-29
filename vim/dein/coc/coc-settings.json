@@ -6,6 +6,8 @@
       "args": ["--stdio"]
     }
   },
+
+  // solargraph
   "solargraph.diagnostics": true,
   "solargraph.useBundler": false,
 }

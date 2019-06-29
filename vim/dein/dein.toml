@@ -14,9 +14,6 @@ rev = 'release'
 hook_add = 'source ~/.vim/dein/plugins/coc.vim'
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
 repo = 'kana/vim-operator-user'
 
 [[plugins]]
