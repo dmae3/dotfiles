@@ -2,6 +2,18 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
+repo = 'sheerun/vim-polyglot'
+hook_add = '''
+let g:polyglot_disabled = []
+'''
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+merge = 0
+rev = 'release'
+hook_add = 'source ~/.vim/dein/plugins/coc.vim'
+
+[[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
@@ -16,25 +28,6 @@ repo = 'thinca/vim-quickrun'
 hook_add = 'source ~/.vim/dein/plugins/quickrun.vim'
 
 [[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
-hook_source = '''
-  let indent_guides_enable_on_vim_startup = 1
-  let g:indent_guides_auto_colors = 0
-  let g:indent_guides_color_change_percent = 90
-  let g:indent_guides_start_level = 2
-  let g:indent_guides_guide_size = 1
-  let g:indent_guides_space_guides = 1
-  let g:indent_guides_exclude_filetypes = ['help', 'nerdtree',
-    \ 'vimfiler', 'quickfix', 'unite', 'go']
-'''
-hook_add = '''
-  augroup MyAutoCmd
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=60
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=236
-  augroup END
-'''
-
-[[plugins]]
 repo = 'ntpeters/vim-better-whitespace'
 
 [[plugins]]
@@ -42,12 +35,6 @@ repo = 'tpope/vim-fugitive'
 hook_add = '''
   nnoremap <Leader>gs :<C-u>Gstatus<Enter>
   nnoremap <Leader>gb :<C-u>Gblame<Enter>
-'''
-
-[[plugins]]
-repo = 'cohama/agit.vim'
-hook_add = '''
-  nnoremap <Leader>gv :<C-u>AgitFile<Enter>
 '''
 
 [[plugins]]
@@ -95,28 +82,7 @@ add_hook = '''
 '''
 
 [[plugins]]
-repo = 'tlhr/anderson.vim'
-
-[[plugins]]
-repo = 'kana/vim-textobj-user'
-
-[[plugins]]
-repo = 'hynek/vim-python-pep8-indent'
-
-[[plugins]]
-repo = 'kana/vim-operator-user'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
 repo = 'thinca/vim-themis'
 
 [[plugins]]
 repo = 'tpope/vim-obsession'
-
-[[plugins]]
-repo = 'neoclide/coc.nvim'
-merge = 0
-rev = 'release'
-hook_add = 'source ~/.vim/dein/plugins/coc.vim'

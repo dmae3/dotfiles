@@ -58,6 +58,17 @@ repo = 'Jagua/vim-denite-ghq'
 on_source = 'denite.nvim'
 
 [[plugins]]
+repo = 'Shougo/neoyank.vim'
+on_event = 'TextYankPost'
+on_source = 'denite.nvim'
+
+[[plugins]]
+repo = 'raghur/fruzzy'
+on_source = ['denite.nvim']
+hook_source = 'let g:fruzzy#sortonempty = 0'
+hook_post_update = 'call fruzzy#install()'
+
+[[plugins]]
 repo = 'Shougo/deol.nvim'
 on_cmd = 'Deol'
 on_source = 'denite.nvim'
@@ -108,11 +119,14 @@ hook_source = '''
   endfunction
 '''
 
-[[plugins]]
-repo = 'Shougo/neoyank.vim'
-on_if = 1
-on_event = 'TextYankPost'
-on_source = 'denite.nvim'
+[plugins.ftplugin]
+deol = '''
+nnoremap <buffer><silent> [Space]gc
+\ :<C-u>call deol#send('git commit')<CR>
+nnoremap <buffer><silent> [Space]gA
+\ :<C-u>call deol#send('git commit --amend')<CR>
+nmap <buffer> i <Plug>(deol_edit)
+'''
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -120,11 +134,6 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = 'context_filetype.vim'
-on_if = 1
-
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
-on_if = 1
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
@@ -251,16 +260,12 @@ repo = 'osyo-manga/vim-jplus'
 on_map = {n = '<Plug>'}
 hook_add = '''
   nmap J <Plug>(jplus)
+  vmap J <Plug>(jplus)
 '''
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
 on_i = 1
-
-[[plugins]]
-repo = 'tweekmonster/impsort.vim'
-on_cmd = 'ImpSort'
-hook_source = 'let g:impsort_highlight_imported = 0'
 
 [[plugins]]
 repo = 'kchmck/vim-coffee-script'
