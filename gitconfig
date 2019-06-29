@@ -1,70 +1,70 @@
 [user]
-    name = dmae3
-    email = daisuke0146@gmail.com
+  name = dmae3
+  email = daisuke0146@gmail.com
 [color]
-    status = auto
-    diff = auto
-    branch = auto
-    interactive = auto
-    grep = auto
+  status = auto
+  diff = auto
+  branch = auto
+  interactive = auto
+  grep = auto
 [push]
-    default = tracking
+  default = tracking
 [core]
-    excludesfile = ~/.gitignore
-    autocrlf = input
+  excludesfile = ~/.gitignore
+  autocrlf = input
 [alias]
-    st = status
-    sh = show
-    so = remote show origin
-    ft = fetch
-    up = pull --rebase
-    rbm = rebase master
-    ad = add
-    ci = commit
-    cam = commit --amend    # fix a last commit
-    co = checkout
+  st = status
+  sh = show
+  so = remote show origin
+  ft = fetch
+  up = pull --rebase
+  rbm = rebase master
+  ad = add
+  ci = commit
+  cam = commit --amend    # fix a last commit
+  co = checkout
     # branch
-    br = branch
-    brr = branch -r
-    ba = branch -a
-    bm = branch --merged
-    bn = branch --no-merged
+  br = branch
+  brr = branch -r
+  ba = branch -a
+  bm = branch --merged
+  bn = branch --no-merged
     # log
-    wc = whatchanged
-    ls = log --stat
-    lp = log -p
-    ln = log --name-status
-    la = log --pretty=\"format:%ad %h (%an): %s\" --date=short
-    lr = log origin
-    oneline = log --pretty=oneline
-    ranking = shortlog -s -n --no-merges
-    log-graph = log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s'
-    log-all = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
+  wc = whatchanged
+  ls = log --stat
+  lp = log -p
+  ln = log --name-status
+  la = log --pretty=\"format:%ad %h (%an): %s\" --date=short
+  lr = log origin
+  oneline = log --pretty=oneline
+  ranking = shortlog -s -n --no-merges
+  log-graph = log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s'
+  log-all = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
     # diff
-    di = diff
-    dm = diff master
-    dw = diff --color-words
-    dc = diff --cached
-    ds = diff --staged
-    d1 = diff HEAD~
-    d2 = diff HEAD~~
-    d3 = diff HEAD~~~
-    d4 = diff HEAD~~~~
-    d5 = diff HEAD~~~~~
-    d10 = diff HEAD~~~~~~~~~~
+  di = diff
+  dm = diff master
+  dw = diff --color-words
+  dc = diff --cached
+  ds = diff --staged
+  d1 = diff HEAD~
+  d2 = diff HEAD~~
+  d3 = diff HEAD~~~
+  d4 = diff HEAD~~~~
+  d5 = diff HEAD~~~~~
+  d10 = diff HEAD~~~~~~~~~~
     # edit a conficting file
-    edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
     # add a conficting file
-    add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
     # grep
-    gr = grep
-    gn = grep -n
+  gr = grep
+  gn = grep -n
 [credential]
-    helper = osxkeychain
+  helper = osxkeychain
 [url "https://github.com"]
-    insteadOf = git://github.com
+  insteadOf = git://github.com
 [filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
