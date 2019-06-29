@@ -80,6 +80,7 @@ if dein#load_state(s:dein_dir)
 
   call dein#load_toml('~/.vim/dein/dein.toml', {'lazy': 0})
   call dein#load_toml('~/.vim/dein/deinlazy.toml', {'lazy' : 1})
+  call dein#load_toml('~/.vim/dein/deinft.toml')
 
   call dein#end()
   call dein#save_state()
@@ -178,7 +179,7 @@ set backspace=indent,eol,start
 set hidden
 set matchpairs+=<:>
 set grepprg=grep\ -inH
-set updatetime=1000
+set updatetime=100
 set virtualedit=block
 set autoread
 set formatoptions=lmoq
@@ -203,7 +204,6 @@ set ttyfast
 set colorcolumn=79
 let g:did_install_default_menus = 1
 set termguicolors
-set updatetime=300
 set signcolumn=yes
 set inccommand=split
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
