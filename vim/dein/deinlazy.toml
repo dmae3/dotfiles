@@ -6,23 +6,47 @@ hook_add = '''
   nnoremap <silent> <Leader>dr
     \ :<C-u>Denite -buffer-name=register
     \ register neoyank<CR>
-  xnoremap <silent> <Leader>gr
+  xnoremap <silent> <Leader>dr
     \ :<C-u>Denite -default-action=replace -buffer-name=register
     \ register neoyank<CR>
 
   nnoremap <silent> <Leader>d<Space>
-    \ :<C-u>Denite file_rec:~/.vim<CR>
-  nnoremap <silent> <Leader>s :<C-u>Denite file_point
-    \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+    \ :<C-u>Denite file/rec:~/.vim<CR>
+  nnoremap <silent> <Leader>s :<C-u>Denite file/point
+    \ -sorters=sorter/rank
+    \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`
+    \ file file:new<CR>
 
   nnoremap <silent> <Leader>dn :<C-u>Denite dein<CR>
   nnoremap <silent> <Leader>dg :<C-u>Denite ghq<CR>
-  nnoremap <silent> ;g :<C-u>Denite -buffer-name=grep
-    \ -no-empty -mode=normal grep<CR>
-  nnoremap <silent> ;n :<C-u>Denite -buffer-name=grep
-    \ -resume -mode=normal<CR>
+  nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
+    \ -no-empty grep<CR>
+  nnoremap <silent> ;n :<C-u>Denite -buffer-name=search -resume<CR>
   nnoremap <silent> <Leader>ft :<C-u>Denite filetype<CR>
-  nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
+  nnoremap <silent> <C-k> :<C-u>Denite change jump<CR>
+  nnoremap <silent> ;;
+    \ :<C-u>Denite command command_history<CR>
+'''
+
+[plugins.ftplugin]
+denite = '''
+" Define mappings
+nnoremap <silent><buffer><expr> <CR>
+\ denite#do_map('do_action')
+nnoremap <silent><buffer><expr> a
+\ denite#do_map('choose_action')
+nnoremap <silent><buffer><expr> d
+\ denite#do_map('do_action', 'delete')
+nnoremap <silent><buffer><expr> p
+\ denite#do_map('do_action', 'preview')
+nnoremap <silent><buffer><expr> q
+\ denite#do_map('quit')
+nnoremap <silent><buffer><expr> '
+\ denite#do_map('quick_move')
+nnoremap <silent><buffer><expr> i
+\ denite#do_map('open_filter_buffer')
+nnoremap <silent><buffer><expr> <Space>
+\ denite#do_map('toggle_select').'j'
 '''
 
 [[plugins]]

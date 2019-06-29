@@ -204,6 +204,12 @@ let g:did_install_default_menus = 1
 set termguicolors
 set updatetime=300
 set signcolumn=yes
+set inccommand=split
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+
+" Modifiable terminal
+autocmd MyAutoCmd TermOpen * setlocal modifiable
+autocmd MyAutoCmd TermClose * buffer #
 
 " break
 set linebreak
