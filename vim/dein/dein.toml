@@ -63,7 +63,7 @@ hook_add = '''
   if !exists('g:airline_symbols')
     let g:airline_symbols = {}
   endif
-  let g:airline_theme = 'molokai'
+  let g:airline_theme = 'gruvbox'
   let g:airline_detect_iminsert = 1
 
   let g:airline#extensions#branch#enabled = 1
@@ -87,6 +87,12 @@ repo = 'joedicastro/vim-molokai256'
 
 [[plugins]]
 repo = 'tomasr/molokai'
+
+[[plugins]]
+repo = 'morhetz/gruvbox'
+add_hook = '''
+  let g:gruvbox_contrast_dark = 'hard'
+'''
 
 [[plugins]]
 repo = 'tlhr/anderson.vim'

@@ -16,6 +16,7 @@ endif
 
 set encoding=utf-8
 scriptencoding utf-8
+language message C
 let g:mapleader=','
 
 function! s:on_filetype() abort "{{{
@@ -272,7 +273,7 @@ endif
 
 " colorscheme
 let g:rehash256 = 1
-colorscheme molokai
+colorscheme gruvbox
 " }}}
 
 " Encoding {{{2
