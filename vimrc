@@ -283,7 +283,7 @@ let &fileencodings = join([
 set fileformats=unix,dos,mac
 
 if exists('&ambiwidth')
-  set ambiwidth=double
+  set ambiwidth=single
 endif
 
 if has('multi_byte_ime')
