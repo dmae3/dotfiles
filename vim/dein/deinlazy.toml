@@ -3,6 +3,9 @@ repo = 'Shougo/denite.nvim'
 on_cmd = 'Denite'
 hook_source = 'source ~/.vim/dein/plugins/denite.vim'
 hook_add = '''
+  autocmd MyAutoCmd FileType denite set winblend=20
+  autocmd MyAutoCmd FileType denite-filter set winblend=20
+
   nnoremap <silent> <Leader>dr
     \ :<C-u>Denite -buffer-name=register
     \ register neoyank<CR>

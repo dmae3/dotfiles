@@ -31,7 +31,6 @@ endfunction "}}}
 augroup MyAutoCmd
   autocmd!
   autocmd FileType,Syntax,BufNewFile,BufNew,BufRead * call s:on_filetype()
-  autocmd CursorHold *.toml syntax sync minlines=300
 augroup END
 
 let $DOTVIM=expand('~/.vim')
@@ -204,6 +203,7 @@ set ttyfast
 set colorcolumn=79
 let g:did_install_default_menus = 1
 set termguicolors
+set pumblend=20
 set signcolumn=yes
 set inccommand=split
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
@@ -244,11 +244,9 @@ set novisualbell
 set belloff=all
 
 " candidate
-set nowildmenu
-set wildmode=list:longest,full
+set wildoptions=pum,tagfile
 set history=1000
 set showfulltag
-set wildoptions=tagfile
 
 " completion
 set completeopt=menuone
