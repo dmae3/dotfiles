@@ -141,7 +141,6 @@ hook_source = '''
     \ })
   call defx#custom#option('_', {
     \ 'columns': 'mark:indent:git:icons:filename:type:size:time',
-    \ 'show_ignored_files': 1,
     \ })
 '''
 
