@@ -9,6 +9,7 @@ fi
 source ~/.zplug/init.zsh
 
 ## manage everything
+zplug 'zplug/zplug', hook-build:'zplug --self-manage --verbose'
 zplug "chrissicool/zsh-256color", use:"zsh-256color.plugin.zsh"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
@@ -35,7 +36,7 @@ if ! zplug check --verbose; then
 fi
 
 ## load zplug
-zplug load
+zplug load --verbose
 
 # env
 ## editor
@@ -136,7 +137,7 @@ alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias du='du -h'
 alias df='df -h'
-alias fig='docker-compose'
+alias fig='docker compose'
 
 ## ls
 case $(uname) in
@@ -178,6 +179,9 @@ bindkey '^r' anyframe-widget-put-history
 
 ## tmuxinator
 [ -f ~/.bin/tmuxinator.zsh ] && source ~/.bin/tmuxinator.zsh
+
+## kube_ps1
+source /usr/local/opt/kube-ps1/share/kube-ps1.sh
 
 # local environment
 [ -f ~/zshrc.local ] && source ~/zshrc.local

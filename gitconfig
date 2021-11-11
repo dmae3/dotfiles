@@ -7,6 +7,8 @@
   branch = auto
   interactive = auto
   grep = auto
+[pull]
+  ff = only
 [push]
   default = tracking
 [core]
@@ -68,3 +70,5 @@
   required = true
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
+[ghq]
+  root = ~/.ghq

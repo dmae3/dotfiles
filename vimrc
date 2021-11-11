@@ -183,6 +183,8 @@ set virtualedit=block
 set autoread
 set formatoptions=lmoq
 set mouse-=a
+set shell=/bin/bash\ --login
+set maxmempattern=10000
 " }}}
 
 " View {{{2
