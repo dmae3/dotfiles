@@ -34,3 +34,36 @@ exec $SHELL -l
 mkdir -p $(anyenv root)/plugins
 git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update
 git clone https://github.com/znz/anyenv-git.git $(anyenv root)/plugins/anyenv-git
+
+# === fish setup ===
+
+# Install fish
+if ! command -v fish &>/dev/null; then
+  echo "Installing fish..."
+  brew install fish
+fi
+
+# Add fish to /etc/shells
+FISH_PATH=/opt/homebrew/bin/fish
+if ! grep -qF "$FISH_PATH" /etc/shells; then
+  echo "Adding $FISH_PATH to /etc/shells..."
+  echo "$FISH_PATH" | sudo tee -a /etc/shells
+fi
+
+# Create symlink ~/.config/fish -> ~/dotfiles/fish
+mkdir -p "$HOME/.config"
+if [ -e "$HOME/.config/fish" ]; then
+  echo ".config/fish already exists."
+else
+  ln -s "$HOME/dotfiles/fish" "$HOME/.config/fish"
+  echo "success to create symlink .config/fish"
+fi
+
+# Install Fisher, then install plugins from fish_plugins
+fish -c "
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+  fisher install jorgebucaran/fisher
+  fisher update
+"
+
+echo "Fish setup complete. Run 'tide configure' to customize the prompt."
